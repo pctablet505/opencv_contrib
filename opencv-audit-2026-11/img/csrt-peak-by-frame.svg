@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="640" height="158" viewBox="0 0 640 158" role="img">
 <title>Peak memory per CSRT update rises with the frame size, from 6.2 MiB at 480 by 360 to 110.8 MiB at 3840 by 2160.</title>
-<style>.bg{fill:#ffffff;stroke:#d6dfdf}.track{fill:#e4eaea}.fill{fill:#c4772a}.lab{fill:#57686a}.v{fill:#15201f}@media (prefers-color-scheme: dark){.bg{fill:#151e1e;stroke:#2a3736}.track{fill:#223030}.fill{fill:#d98d3e}.lab{fill:#9aaba9}.v{fill:#e3ecea}}text{font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;font-size:13px}.v{font-family:ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;font-size:12.5px}</style>
+<style>.bg{fill:#fcfcfb;stroke:#e1e0d9}.track{fill:#e1e0d9}.fill{fill:#2a78d6}.lab{fill:#52514e}.v{fill:#0b0b0b}@media (prefers-color-scheme: dark){.bg{fill:#1a1a19;stroke:#383835}.track{fill:#2c2c2a}.fill{fill:#3987e5}.lab{fill:#c3c2b7}.v{fill:#f0efec}}text{font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;font-size:13px}.v{font-family:ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;font-size:12.5px}</style>
 <rect class="bg" x="0.5" y="0.5" width="639" height="157" rx="6"/>
 <text class="lab" x="118" y="31" text-anchor="end">480 × 360</text>
 <rect class="track" x="126" y="20" width="420" height="14" rx="3"/>
