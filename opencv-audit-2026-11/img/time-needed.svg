@@ -1,107 +1,106 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="860" height="502" viewBox="0 0 860 502" role="img">
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="476" viewBox="0 0 860 476" role="img">
 <title>Time per call: now and needed, log scale</title><style>.bg{fill:#fcfcfb;stroke:#e1e0d9}.ink{fill:#1f2328}.ink2{fill:#59636e}.muted{fill:#8c959f}.grid{stroke:#eaeef2}.axis{stroke:#d1d9e0}.need{fill:#2a78d6;stroke:#fcfcfb}.now{fill:#cf3a3a;stroke:#fcfcfb}.gap{stroke:#f4c0bd}.gapt{fill:#b42318}.sw-need{fill:#2a78d6}.sw-now{fill:#cf3a3a}.sw-gap{fill:#f4c0bd}@media (prefers-color-scheme: dark){.bg{fill:#151b23;stroke:#30363d}.ink{fill:#e6edf3}.ink2{fill:#9198a1}.muted{fill:#7d8590}.grid{stroke:#262c36}.axis{stroke:#3d444d}.need{fill:#4493f8;stroke:#151b23}.now{fill:#f05d5d;stroke:#151b23}.gap{stroke:#5c2a2a}.gapt{fill:#ff8a80}.sw-need{fill:#4493f8}.sw-now{fill:#f05d5d}.sw-gap{fill:#5c2a2a}}text{font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;font-size:13px}.mono{font-family:ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;font-size:12.5px}.small{font-size:11.5px}.b{font-weight:600}.title{font-size:14px;font-weight:600}</style>
-<rect class="bg" x="0.5" y="0.5" width="859" height="501" rx="8"/>
-<text class="ink title" x="20.0" y="30.0" text-anchor="start">Time per call</text>
-<circle class="sw-now" cx="25" cy="50" r="5"/>
-<text class="ink2 small" x="35.0" y="54.0" text-anchor="start">now: stock 4.x</text>
-<circle class="sw-need" cx="150.39999999999998" cy="50" r="5"/>
-<text class="ink2 small" x="160.4" y="54.0" text-anchor="start">needed: same output, measured</text>
-<rect class="sw-gap" x="369.79999999999995" y="47" width="18" height="6" rx="3"/>
-<text class="ink2 small" x="393.8" y="54.0" text-anchor="start">avoidable</text>
-<line class="grid" x1="300.0" y1="72" x2="300.0" y2="464" stroke-width="1"/>
-<text class="muted small" x="300.0" y="480.0" text-anchor="middle">0.1 ms</text>
-<line class="grid" x1="360.0" y1="72" x2="360.0" y2="464" stroke-width="1"/>
-<text class="muted small" x="360.0" y="480.0" text-anchor="middle">1 ms</text>
-<line class="grid" x1="420.0" y1="72" x2="420.0" y2="464" stroke-width="1"/>
-<text class="muted small" x="420.0" y="480.0" text-anchor="middle">10 ms</text>
-<line class="grid" x1="480.0" y1="72" x2="480.0" y2="464" stroke-width="1"/>
-<text class="muted small" x="480.0" y="480.0" text-anchor="middle">100 ms</text>
-<line class="grid" x1="540.0" y1="72" x2="540.0" y2="464" stroke-width="1"/>
-<text class="muted small" x="540.0" y="480.0" text-anchor="middle">1 s</text>
-<line class="grid" x1="600.0" y1="72" x2="600.0" y2="464" stroke-width="1"/>
-<text class="muted small" x="600.0" y="480.0" text-anchor="middle">10 s</text>
-<text class="mono ink" x="286.0" y="92.0" text-anchor="end">cuda::HoughCirclesDetector</text>
-<text class="muted small" x="286.0" y="106.0" text-anchor="end">4K</text>
-<line class="gap" x1="336.8" y1="94.0" x2="378.1" y2="94.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="336.8" cy="94.0" r="6" stroke-width="2"/>
-<circle class="now" cx="378.1" cy="94.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="98.0" text-anchor="start">2.00 → 0.41 ms</text>
-<text class="gapt small b" x="840.0" y="98.0" text-anchor="end">4.9× faster</text>
-<text class="mono ink" x="286.0" y="124.0" text-anchor="end">radiusMatch()</text>
-<text class="muted small" x="286.0" y="138.0" text-anchor="end">BinaryDescriptorMatcher, 600 × 600</text>
-<line class="gap" x1="460.8" y1="126.0" x2="501.7" y2="126.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="460.8" cy="126.0" r="6" stroke-width="2"/>
-<circle class="now" cx="501.7" cy="126.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="130.0" text-anchor="start">230 → 47.8 ms</text>
-<text class="gapt small b" x="840.0" y="130.0" text-anchor="end">4.8× faster</text>
-<text class="mono ink" x="286.0" y="156.0" text-anchor="end">pencilSketch()</text>
-<text class="muted small" x="286.0" y="170.0" text-anchor="end">1080p, one thread</text>
-<line class="gap" x1="468.4" y1="158.0" x2="508.0" y2="158.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="468.4" cy="158.0" r="6" stroke-width="2"/>
-<circle class="now" cx="508.0" cy="158.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="162.0" text-anchor="start">293 → 64.0 ms</text>
-<text class="gapt small b" x="840.0" y="162.0" text-anchor="end">4.6× faster</text>
-<text class="mono ink" x="286.0" y="188.0" text-anchor="end">edgePreservingFilter() NC</text>
-<text class="muted small" x="286.0" y="202.0" text-anchor="end">1080p, one thread</text>
-<line class="gap" x1="494.1" y1="190.0" x2="528.1" y2="190.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="494.1" cy="190.0" r="6" stroke-width="2"/>
-<circle class="now" cx="528.1" cy="190.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="194.0" text-anchor="start">633 → 172 ms</text>
-<text class="gapt small b" x="840.0" y="194.0" text-anchor="end">3.7× faster</text>
-<text class="mono ink" x="286.0" y="220.0" text-anchor="end">stylization()</text>
-<text class="muted small" x="286.0" y="234.0" text-anchor="end">1080p, one thread</text>
-<line class="gap" x1="495.5" y1="222.0" x2="528.4" y2="222.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="495.5" cy="222.0" r="6" stroke-width="2"/>
-<circle class="now" cx="528.4" cy="222.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="226.0" text-anchor="start">641 → 181 ms</text>
-<text class="gapt small b" x="840.0" y="226.0" text-anchor="end">3.5× faster</text>
-<text class="mono ink" x="286.0" y="252.0" text-anchor="end">calcOpticalFlowDenseRLOF()</text>
-<text class="muted small" x="286.0" y="266.0" text-anchor="end">1080p, robust norm</text>
-<line class="gap" x1="511.3" y1="254.0" x2="534.9" y2="254.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="511.3" cy="254.0" r="6" stroke-width="2"/>
-<circle class="now" cx="534.9" cy="254.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="258.0" text-anchor="start">822 → 332 ms</text>
-<text class="gapt small b" x="840.0" y="258.0" text-anchor="end">2.5× faster</text>
-<text class="mono ink" x="286.0" y="284.0" text-anchor="end">TrackerNano update</text>
-<text class="muted small" x="286.0" y="298.0" text-anchor="end">4K, target near a border</text>
-<line class="gap" x1="408.4" y1="286.0" x2="431.9" y2="286.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="408.4" cy="286.0" r="6" stroke-width="2"/>
-<circle class="now" cx="431.9" cy="286.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="290.0" text-anchor="start">15.8 → 6.40 ms</text>
-<text class="gapt small b" x="840.0" y="290.0" text-anchor="end">2.5× faster</text>
-<text class="mono ink" x="286.0" y="316.0" text-anchor="end">cuda::sqrIntegral()</text>
-<text class="muted small" x="286.0" y="330.0" text-anchor="end">4K</text>
-<line class="gap" x1="324.4" y1="318.0" x2="341.9" y2="318.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="324.4" cy="318.0" r="6" stroke-width="2"/>
-<circle class="now" cx="341.9" cy="318.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="322.0" text-anchor="start">0.499 → 0.255 ms</text>
-<text class="gapt small b" x="840.0" y="322.0" text-anchor="end">2.0× faster</text>
-<text class="mono ink" x="286.0" y="348.0" text-anchor="end">TrackerCSRT::update()</text>
-<text class="muted small" x="286.0" y="362.0" text-anchor="end">3840 × 2160</text>
-<line class="gap" x1="427.8" y1="350.0" x2="445.2" y2="350.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="427.8" cy="350.0" r="6" stroke-width="2"/>
-<circle class="now" cx="445.2" cy="350.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="354.0" text-anchor="start">26.3 → 13.5 ms</text>
-<text class="gapt small b" x="840.0" y="354.0" text-anchor="end">1.9× faster</text>
-<text class="mono ink" x="286.0" y="380.0" text-anchor="end">KAZE::detectAndCompute()</text>
-<text class="muted small" x="286.0" y="394.0" text-anchor="end">3840 × 2160</text>
-<line class="gap" x1="538.7" y1="382.0" x2="555.6" y2="382.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="538.7" cy="382.0" r="6" stroke-width="2"/>
-<circle class="now" cx="555.6" cy="382.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="386.0" text-anchor="start">1,820 → 953 ms</text>
-<text class="gapt small b" x="840.0" y="386.0" text-anchor="end">1.9× faster</text>
-<text class="mono ink" x="286.0" y="412.0" text-anchor="end">MSLIC superpixels</text>
-<text class="muted small" x="286.0" y="426.0" text-anchor="end">1080p</text>
-<line class="gap" x1="535.1" y1="414.0" x2="550.9" y2="414.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="535.1" cy="414.0" r="6" stroke-width="2"/>
-<circle class="now" cx="550.9" cy="414.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="418.0" text-anchor="start">1,518 → 827 ms</text>
-<text class="gapt small b" x="840.0" y="418.0" text-anchor="end">1.8× faster</text>
-<text class="mono ink" x="286.0" y="444.0" text-anchor="end">PCA, 16 components</text>
-<text class="muted small" x="286.0" y="458.0" text-anchor="end">500 × 100,000</text>
-<line class="gap" x1="558.8" y1="446.0" x2="571.0" y2="446.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="558.8" cy="446.0" r="6" stroke-width="2"/>
-<circle class="now" cx="571.0" cy="446.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="450.0" text-anchor="start">3,280 → 2,059 ms</text>
-<text class="gapt small b" x="840.0" y="450.0" text-anchor="end">1.6× faster</text>
+<rect class="bg" x="0.5" y="0.5" width="859" height="475" rx="8"/>
+<circle class="sw-now" cx="25" cy="24" r="5"/>
+<text class="ink2 small" x="35.0" y="28.0" text-anchor="start">now: stock 4.x</text>
+<circle class="sw-need" cx="150.39999999999998" cy="24" r="5"/>
+<text class="ink2 small" x="160.4" y="28.0" text-anchor="start">needed: same output, measured</text>
+<rect class="sw-gap" x="369.79999999999995" y="21" width="18" height="6" rx="3"/>
+<text class="ink2 small" x="393.8" y="28.0" text-anchor="start">avoidable</text>
+<line class="grid" x1="300.0" y1="46" x2="300.0" y2="438" stroke-width="1"/>
+<text class="muted small" x="300.0" y="454.0" text-anchor="middle">0.1 ms</text>
+<line class="grid" x1="360.0" y1="46" x2="360.0" y2="438" stroke-width="1"/>
+<text class="muted small" x="360.0" y="454.0" text-anchor="middle">1 ms</text>
+<line class="grid" x1="420.0" y1="46" x2="420.0" y2="438" stroke-width="1"/>
+<text class="muted small" x="420.0" y="454.0" text-anchor="middle">10 ms</text>
+<line class="grid" x1="480.0" y1="46" x2="480.0" y2="438" stroke-width="1"/>
+<text class="muted small" x="480.0" y="454.0" text-anchor="middle">100 ms</text>
+<line class="grid" x1="540.0" y1="46" x2="540.0" y2="438" stroke-width="1"/>
+<text class="muted small" x="540.0" y="454.0" text-anchor="middle">1 s</text>
+<line class="grid" x1="600.0" y1="46" x2="600.0" y2="438" stroke-width="1"/>
+<text class="muted small" x="600.0" y="454.0" text-anchor="middle">10 s</text>
+<text class="mono ink" x="286.0" y="66.0" text-anchor="end">cuda::HoughCirclesDetector</text>
+<text class="muted small" x="286.0" y="80.0" text-anchor="end">4K</text>
+<line class="gap" x1="336.8" y1="68.0" x2="378.1" y2="68.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="336.8" cy="68.0" r="6" stroke-width="2"/>
+<circle class="now" cx="378.1" cy="68.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="72.0" text-anchor="start">2.00 → 0.41 ms</text>
+<text class="gapt small b" x="840.0" y="72.0" text-anchor="end">4.9× faster</text>
+<text class="mono ink" x="286.0" y="98.0" text-anchor="end">radiusMatch()</text>
+<text class="muted small" x="286.0" y="112.0" text-anchor="end">BinaryDescriptorMatcher, 600 × 600</text>
+<line class="gap" x1="460.8" y1="100.0" x2="501.7" y2="100.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="460.8" cy="100.0" r="6" stroke-width="2"/>
+<circle class="now" cx="501.7" cy="100.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="104.0" text-anchor="start">230 → 47.8 ms</text>
+<text class="gapt small b" x="840.0" y="104.0" text-anchor="end">4.8× faster</text>
+<text class="mono ink" x="286.0" y="130.0" text-anchor="end">pencilSketch()</text>
+<text class="muted small" x="286.0" y="144.0" text-anchor="end">1080p, one thread</text>
+<line class="gap" x1="468.4" y1="132.0" x2="508.0" y2="132.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="468.4" cy="132.0" r="6" stroke-width="2"/>
+<circle class="now" cx="508.0" cy="132.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="136.0" text-anchor="start">293 → 64.0 ms</text>
+<text class="gapt small b" x="840.0" y="136.0" text-anchor="end">4.6× faster</text>
+<text class="mono ink" x="286.0" y="162.0" text-anchor="end">edgePreservingFilter() NC</text>
+<text class="muted small" x="286.0" y="176.0" text-anchor="end">1080p, one thread</text>
+<line class="gap" x1="494.1" y1="164.0" x2="528.1" y2="164.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="494.1" cy="164.0" r="6" stroke-width="2"/>
+<circle class="now" cx="528.1" cy="164.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="168.0" text-anchor="start">633 → 172 ms</text>
+<text class="gapt small b" x="840.0" y="168.0" text-anchor="end">3.7× faster</text>
+<text class="mono ink" x="286.0" y="194.0" text-anchor="end">stylization()</text>
+<text class="muted small" x="286.0" y="208.0" text-anchor="end">1080p, one thread</text>
+<line class="gap" x1="495.5" y1="196.0" x2="528.4" y2="196.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="495.5" cy="196.0" r="6" stroke-width="2"/>
+<circle class="now" cx="528.4" cy="196.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="200.0" text-anchor="start">641 → 181 ms</text>
+<text class="gapt small b" x="840.0" y="200.0" text-anchor="end">3.5× faster</text>
+<text class="mono ink" x="286.0" y="226.0" text-anchor="end">calcOpticalFlowDenseRLOF()</text>
+<text class="muted small" x="286.0" y="240.0" text-anchor="end">1080p, robust norm</text>
+<line class="gap" x1="511.3" y1="228.0" x2="534.9" y2="228.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="511.3" cy="228.0" r="6" stroke-width="2"/>
+<circle class="now" cx="534.9" cy="228.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="232.0" text-anchor="start">822 → 332 ms</text>
+<text class="gapt small b" x="840.0" y="232.0" text-anchor="end">2.5× faster</text>
+<text class="mono ink" x="286.0" y="258.0" text-anchor="end">TrackerNano update</text>
+<text class="muted small" x="286.0" y="272.0" text-anchor="end">4K, target near a border</text>
+<line class="gap" x1="408.4" y1="260.0" x2="431.9" y2="260.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="408.4" cy="260.0" r="6" stroke-width="2"/>
+<circle class="now" cx="431.9" cy="260.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="264.0" text-anchor="start">15.8 → 6.40 ms</text>
+<text class="gapt small b" x="840.0" y="264.0" text-anchor="end">2.5× faster</text>
+<text class="mono ink" x="286.0" y="290.0" text-anchor="end">cuda::sqrIntegral()</text>
+<text class="muted small" x="286.0" y="304.0" text-anchor="end">4K</text>
+<line class="gap" x1="324.4" y1="292.0" x2="341.9" y2="292.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="324.4" cy="292.0" r="6" stroke-width="2"/>
+<circle class="now" cx="341.9" cy="292.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="296.0" text-anchor="start">0.499 → 0.255 ms</text>
+<text class="gapt small b" x="840.0" y="296.0" text-anchor="end">2.0× faster</text>
+<text class="mono ink" x="286.0" y="322.0" text-anchor="end">TrackerCSRT::update()</text>
+<text class="muted small" x="286.0" y="336.0" text-anchor="end">3840 × 2160</text>
+<line class="gap" x1="427.8" y1="324.0" x2="445.2" y2="324.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="427.8" cy="324.0" r="6" stroke-width="2"/>
+<circle class="now" cx="445.2" cy="324.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="328.0" text-anchor="start">26.3 → 13.5 ms</text>
+<text class="gapt small b" x="840.0" y="328.0" text-anchor="end">1.9× faster</text>
+<text class="mono ink" x="286.0" y="354.0" text-anchor="end">KAZE::detectAndCompute()</text>
+<text class="muted small" x="286.0" y="368.0" text-anchor="end">3840 × 2160</text>
+<line class="gap" x1="538.7" y1="356.0" x2="555.6" y2="356.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="538.7" cy="356.0" r="6" stroke-width="2"/>
+<circle class="now" cx="555.6" cy="356.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="360.0" text-anchor="start">1,820 → 953 ms</text>
+<text class="gapt small b" x="840.0" y="360.0" text-anchor="end">1.9× faster</text>
+<text class="mono ink" x="286.0" y="386.0" text-anchor="end">MSLIC superpixels</text>
+<text class="muted small" x="286.0" y="400.0" text-anchor="end">1080p</text>
+<line class="gap" x1="535.1" y1="388.0" x2="550.9" y2="388.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="535.1" cy="388.0" r="6" stroke-width="2"/>
+<circle class="now" cx="550.9" cy="388.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="392.0" text-anchor="start">1,518 → 827 ms</text>
+<text class="gapt small b" x="840.0" y="392.0" text-anchor="end">1.8× faster</text>
+<text class="mono ink" x="286.0" y="418.0" text-anchor="end">PCA, 16 components</text>
+<text class="muted small" x="286.0" y="432.0" text-anchor="end">500 × 100,000</text>
+<line class="gap" x1="558.8" y1="420.0" x2="571.0" y2="420.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="558.8" cy="420.0" r="6" stroke-width="2"/>
+<circle class="now" cx="571.0" cy="420.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="424.0" text-anchor="start">3,280 → 2,059 ms</text>
+<text class="gapt small b" x="840.0" y="424.0" text-anchor="end">1.6× faster</text>
 </svg>
