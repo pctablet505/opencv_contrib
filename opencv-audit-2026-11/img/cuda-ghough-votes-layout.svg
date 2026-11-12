@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="236" viewBox="0 0 860 236" role="img">
+<title>CUDA Generalized Hough votes: three int3 counts read back as three float4 values</title><style>.bg{fill:#fcfcfb;stroke:#e1e0d9}.ink{fill:#0b0b0b}.ink2{fill:#52514e}.muted{fill:#898781}.grid{stroke:#e1e0d9}.axis{stroke:#c3c2b7}.track{fill:#e1e0d9}.s1{fill:#2a78d6}.s1l{stroke:#2a78d6}.bad{fill:#d03b3b}.badl{stroke:#d03b3b}.badt{fill:#b42318}.ok{fill:#0ca30c}.okt{fill:#067a06}.ref{stroke:#898781}.zone{fill:#d03b3b;fill-opacity:0.08}.v5{fill:#6f42c1}.v5l{stroke:#6f42c1}.v5t{fill:#6f42c1}.cell{stroke:#c3c2b7;fill:#fcfcfb}.past{fill:#d03b3b;fill-opacity:0.10;stroke:#d03b3b}@media (prefers-color-scheme: dark){.bg{fill:#1a1a19;stroke:#383835}.ink{fill:#f0efec}.ink2{fill:#c3c2b7}.grid{stroke:#2c2c2a}.axis{stroke:#383835}.track{fill:#2c2c2a}.s1{fill:#3987e5}.s1l{stroke:#3987e5}.badt{fill:#f07f7f}.v5{fill:#a371f7}.v5l{stroke:#a371f7}.v5t{fill:#b893fa}.okt{fill:#3ccf3c}.zone{fill-opacity:0.16}.cell{stroke:#4a4a47;fill:#1a1a19}.past{fill-opacity:0.22}}text{font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;font-size:13px}.mono{font-family:ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;font-size:12.5px}.small{font-size:11.5px}.b{font-weight:600}</style>
+<rect class="bg" x="0.5" y="0.5" width="859" height="235" rx="6"/>
+<text class="ink b" x="16.0" y="26.0" text-anchor="start" >What detect() returns as votes: 36 bytes of int3 copied out as 48 bytes of float4</text>
+<text class="ink2" x="112.0" y="72.0" text-anchor="end" >on the device</text>
+<text class="mono muted" x="112.0" y="88.0" text-anchor="end" >3 × int3</text>
+<rect class="cell" x="124.0" y="54.0" width="56.0" height="40.0" rx="2" />
+<text class="mono ink" x="152.0" y="79.0" text-anchor="middle" >262</text>
+<rect class="cell" x="182.0" y="54.0" width="56.0" height="40.0" rx="2" />
+<text class="mono ink" x="210.0" y="79.0" text-anchor="middle" >0</text>
+<rect class="cell" x="240.0" y="54.0" width="56.0" height="40.0" rx="2" />
+<text class="mono ink" x="268.0" y="79.0" text-anchor="middle" >0</text>
+<rect class="cell" x="298.0" y="54.0" width="56.0" height="40.0" rx="2" />
+<text class="mono ink" x="326.0" y="79.0" text-anchor="middle" >396</text>
+<rect class="cell" x="356.0" y="54.0" width="56.0" height="40.0" rx="2" />
+<text class="mono ink" x="384.0" y="79.0" text-anchor="middle" >0</text>
+<rect class="cell" x="414.0" y="54.0" width="56.0" height="40.0" rx="2" />
+<text class="mono ink" x="442.0" y="79.0" text-anchor="middle" >0</text>
+<rect class="cell" x="472.0" y="54.0" width="56.0" height="40.0" rx="2" />
+<text class="mono ink" x="500.0" y="79.0" text-anchor="middle" >270</text>
+<rect class="cell" x="530.0" y="54.0" width="56.0" height="40.0" rx="2" />
+<text class="mono ink" x="558.0" y="79.0" text-anchor="middle" >0</text>
+<rect class="cell" x="588.0" y="54.0" width="56.0" height="40.0" rx="2" />
+<text class="mono ink" x="616.0" y="79.0" text-anchor="middle" >0</text>
+<path d="M126.0 104 v6 h168.0 v-6" fill="none" class="axis" stroke-width="1.5"/>
+<text class="ink2 small" x="210.0" y="126.0" text-anchor="middle" >position 1: 262 votes</text>
+<path d="M300.0 104 v6 h168.0 v-6" fill="none" class="axis" stroke-width="1.5"/>
+<text class="ink2 small" x="384.0" y="126.0" text-anchor="middle" >position 2: 396 votes</text>
+<path d="M474.0 104 v6 h168.0 v-6" fill="none" class="axis" stroke-width="1.5"/>
+<text class="ink2 small" x="558.0" y="126.0" text-anchor="middle" >position 3: 270 votes</text>
+<text class="ink2" x="112.0" y="168.0" text-anchor="end" >returned</text>
+<text class="mono muted" x="112.0" y="184.0" text-anchor="end" >3 × CV_32FC4</text>
+<rect class="cell" x="124.0" y="150.0" width="56.0" height="40.0" rx="2" />
+<text class="mono small badt" x="152.0" y="175.0" text-anchor="middle" >3.67e-43</text>
+<rect class="cell" x="182.0" y="150.0" width="56.0" height="40.0" rx="2" />
+<text class="mono small ink" x="210.0" y="175.0" text-anchor="middle" >0</text>
+<rect class="cell" x="240.0" y="150.0" width="56.0" height="40.0" rx="2" />
+<text class="mono small ink" x="268.0" y="175.0" text-anchor="middle" >0</text>
+<rect class="cell" x="298.0" y="150.0" width="56.0" height="40.0" rx="2" />
+<text class="mono small badt" x="326.0" y="175.0" text-anchor="middle" >5.55e-43</text>
+<rect class="cell" x="356.0" y="150.0" width="56.0" height="40.0" rx="2" />
+<text class="mono small ink" x="384.0" y="175.0" text-anchor="middle" >0</text>
+<rect class="cell" x="414.0" y="150.0" width="56.0" height="40.0" rx="2" />
+<text class="mono small ink" x="442.0" y="175.0" text-anchor="middle" >0</text>
+<rect class="cell" x="472.0" y="150.0" width="56.0" height="40.0" rx="2" />
+<text class="mono small badt" x="500.0" y="175.0" text-anchor="middle" >3.78e-43</text>
+<rect class="cell" x="530.0" y="150.0" width="56.0" height="40.0" rx="2" />
+<text class="mono small ink" x="558.0" y="175.0" text-anchor="middle" >0</text>
+<rect class="cell" x="588.0" y="150.0" width="56.0" height="40.0" rx="2" />
+<text class="mono small ink" x="616.0" y="175.0" text-anchor="middle" >0</text>
+<rect class="past" x="646.0" y="150.0" width="56.0" height="40.0" rx="2" />
+<text class="mono small ink" x="674.0" y="175.0" text-anchor="middle" >0</text>
+<rect class="past" x="704.0" y="150.0" width="56.0" height="40.0" rx="2" />
+<text class="mono small ink" x="732.0" y="175.0" text-anchor="middle" >0</text>
+<rect class="past" x="762.0" y="150.0" width="56.0" height="40.0" rx="2" />
+<text class="mono small ink" x="790.0" y="175.0" text-anchor="middle" >0</text>
+<path d="M126.0 144 v-6 h226.0 v6" fill="none" class="badl" stroke-width="1.5"/>
+<path d="M358.0 144 v-6 h226.0 v6" fill="none" class="badl" stroke-width="1.5"/>
+<path d="M590.0 144 v-6 h226.0 v6" fill="none" class="badl" stroke-width="1.5"/>
+<text class="badt small" x="733.0" y="210.0" text-anchor="middle" >12 bytes past the end</text>
+<text class="ink2 small" x="124.0" y="222.0" text-anchor="start" >3.67e-43 is the bit pattern of the integer 262 read as a float.</text>
+</svg>

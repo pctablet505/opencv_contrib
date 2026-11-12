@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="282" viewBox="0 0 860 282" role="img">
+<title>Dense RLOF grid points with default parameters, by frame size, against the 32,767 limit</title><style>.bg{fill:#fcfcfb;stroke:#e1e0d9}.ink{fill:#0b0b0b}.ink2{fill:#52514e}.muted{fill:#898781}.grid{stroke:#e1e0d9}.axis{stroke:#c3c2b7}.track{fill:#e1e0d9}.s1{fill:#2a78d6}.s1l{stroke:#2a78d6}.bad{fill:#d03b3b}.badl{stroke:#d03b3b}.badt{fill:#b42318}.ok{fill:#0ca30c}.okt{fill:#067a06}.ref{stroke:#898781}.zone{fill:#d03b3b;fill-opacity:0.08}.v5{fill:#6f42c1}.v5l{stroke:#6f42c1}.v5t{fill:#6f42c1}.cell{stroke:#c3c2b7;fill:#fcfcfb}.past{fill:#d03b3b;fill-opacity:0.10;stroke:#d03b3b}@media (prefers-color-scheme: dark){.bg{fill:#1a1a19;stroke:#383835}.ink{fill:#f0efec}.ink2{fill:#c3c2b7}.grid{stroke:#2c2c2a}.axis{stroke:#383835}.track{fill:#2c2c2a}.s1{fill:#3987e5}.s1l{stroke:#3987e5}.badt{fill:#f07f7f}.v5{fill:#a371f7}.v5l{stroke:#a371f7}.v5t{fill:#b893fa}.okt{fill:#3ccf3c}.zone{fill-opacity:0.16}.cell{stroke:#4a4a47;fill:#1a1a19}.past{fill-opacity:0.22}}text{font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;font-size:13px}.mono{font-family:ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;font-size:12.5px}.small{font-size:11.5px}.b{font-weight:600}</style>
+<rect class="bg" x="0.5" y="0.5" width="859" height="281" rx="6"/>
+<text class="ink b" x="16.0" y="26.0" text-anchor="start" >Grid points from the default 6 × 6 grid, against INTERP_EPIC&#x27;s limit of 32,767</text>
+<text class="ink" x="126.0" y="64.0" text-anchor="end" >640 × 480</text>
+<rect class="s1" x="136.0" y="53.0" width="18.5" height="14.0" rx="3" />
+<text class="ink2 small" x="215.0" y="64.0" text-anchor="start" >8,560 ok</text>
+<text class="ink" x="126.0" y="94.0" text-anchor="end" >1280 × 720</text>
+<rect class="s1" x="136.0" y="83.0" width="55.6" height="14.0" rx="3" />
+<text class="ink2 small" x="215.0" y="94.0" text-anchor="start" >25,680 ok</text>
+<text class="ink" x="126.0" y="124.0" text-anchor="end" >1440 × 900</text>
+<rect class="bad" x="136.0" y="113.0" width="78.0" height="14.0" rx="3" />
+<text class="badt small" x="222.0" y="124.0" text-anchor="start" >36,000 assertion fails</text>
+<text class="ink" x="126.0" y="154.0" text-anchor="end" >1600 × 900</text>
+<rect class="bad" x="136.0" y="143.0" width="86.8" height="14.0" rx="3" />
+<text class="badt small" x="230.8" y="154.0" text-anchor="start" >40,050 assertion fails</text>
+<text class="ink" x="126.0" y="184.0" text-anchor="end" >1920 × 1080</text>
+<rect class="bad" x="136.0" y="173.0" width="124.8" height="14.0" rx="3" />
+<text class="badt small" x="268.8" y="184.0" text-anchor="start" >57,600 assertion fails</text>
+<text class="ink" x="126.0" y="214.0" text-anchor="end" >2560 × 1440</text>
+<rect class="bad" x="136.0" y="203.0" width="222.0" height="14.0" rx="3" />
+<text class="badt small" x="366.0" y="214.0" text-anchor="start" >102,480 assertion fails</text>
+<text class="ink" x="126.0" y="244.0" text-anchor="end" >3840 × 2160</text>
+<rect class="bad" x="136.0" y="233.0" width="499.2" height="14.0" rx="3" />
+<text class="badt small" x="643.2" y="244.0" text-anchor="start" >230,400 assertion fails</text>
+<line class="badl" x1="207.0" y1="42.0" x2="207.0" y2="256.0" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text class="badt small" x="211.0" y="272.0" text-anchor="start" >limit 32,767</text>
+</svg>

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="374" viewBox="0 0 860 374" role="img">
+<title>Peak heap memory during one call, MiB</title><style>.bg{fill:#fcfcfb;stroke:#e1e0d9}.ink{fill:#0b0b0b}.ink2{fill:#52514e}.muted{fill:#898781}.grid{stroke:#e1e0d9}.axis{stroke:#c3c2b7}.track{fill:#e1e0d9}.s1{fill:#2a78d6}.s1l{stroke:#2a78d6}.bad{fill:#d03b3b}.badl{stroke:#d03b3b}.badt{fill:#b42318}.ok{fill:#0ca30c}.okt{fill:#067a06}.ref{stroke:#898781}.zone{fill:#d03b3b;fill-opacity:0.08}.v5{fill:#6f42c1}.v5l{stroke:#6f42c1}.v5t{fill:#6f42c1}.cell{stroke:#c3c2b7;fill:#fcfcfb}.past{fill:#d03b3b;fill-opacity:0.10;stroke:#d03b3b}@media (prefers-color-scheme: dark){.bg{fill:#1a1a19;stroke:#383835}.ink{fill:#f0efec}.ink2{fill:#c3c2b7}.grid{stroke:#2c2c2a}.axis{stroke:#383835}.track{fill:#2c2c2a}.s1{fill:#3987e5}.s1l{stroke:#3987e5}.badt{fill:#f07f7f}.v5{fill:#a371f7}.v5l{stroke:#a371f7}.v5t{fill:#b893fa}.okt{fill:#3ccf3c}.zone{fill-opacity:0.16}.cell{stroke:#4a4a47;fill:#1a1a19}.past{fill-opacity:0.22}}text{font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;font-size:13px}.mono{font-family:ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;font-size:12.5px}.small{font-size:11.5px}.b{font-weight:600}</style>
+<rect class="bg" x="0.5" y="0.5" width="859" height="373" rx="6"/>
+<text class="ink b" x="16.0" y="26.0" text-anchor="start" >Peak memory during one call (MiB, above the level before the call)</text>
+<text class="mono ink" x="306.0" y="62.0" text-anchor="end" >KAZE::detectAndCompute()</text>
+<rect class="track" x="316.0" y="52.0" width="290.0" height="12.0" rx="3" />
+<rect class="s1" x="316.0" y="52.0" width="290.0" height="12.0" rx="3" />
+<text class="ink small" x="616.0" y="62.0" text-anchor="start" >4,180 MiB</text>
+<text class="muted small" x="696.0" y="62.0" text-anchor="start" >3840 × 2160</text>
+<text class="mono ink" x="306.0" y="88.0" text-anchor="end" >KAZE::detectAndCompute()</text>
+<rect class="track" x="316.0" y="78.0" width="290.0" height="12.0" rx="3" />
+<rect class="s1" x="316.0" y="78.0" width="72.6" height="12.0" rx="3" />
+<text class="ink small" x="616.0" y="88.0" text-anchor="start" >1,047 MiB</text>
+<text class="muted small" x="696.0" y="88.0" text-anchor="start" >1920 × 1080 photo</text>
+<text class="mono ink" x="306.0" y="114.0" text-anchor="end" >stylization()</text>
+<rect class="track" x="316.0" y="104.0" width="290.0" height="12.0" rx="3" />
+<rect class="s1" x="316.0" y="104.0" width="71.9" height="12.0" rx="3" />
+<text class="ink small" x="616.0" y="114.0" text-anchor="start" >1,036 MiB</text>
+<text class="muted small" x="696.0" y="114.0" text-anchor="start" >4K</text>
+<text class="mono ink" x="306.0" y="140.0" text-anchor="end" >PCA, 16 components</text>
+<rect class="track" x="316.0" y="130.0" width="290.0" height="12.0" rx="3" />
+<rect class="s1" x="316.0" y="130.0" width="26.6" height="12.0" rx="3" />
+<text class="ink small" x="616.0" y="140.0" text-anchor="start" >384 MiB</text>
+<text class="muted small" x="696.0" y="140.0" text-anchor="start" >500 × 100,000</text>
+<text class="mono ink" x="306.0" y="166.0" text-anchor="end" >cuda::DensePyrLKOpticalFlow</text>
+<rect class="track" x="316.0" y="156.0" width="290.0" height="12.0" rx="3" />
+<rect class="s1" x="316.0" y="156.0" width="19.0" height="12.0" rx="3" />
+<text class="ink small" x="616.0" y="166.0" text-anchor="start" >274.2 MiB</text>
+<text class="muted small" x="696.0" y="166.0" text-anchor="start" >4K</text>
+<text class="mono ink" x="306.0" y="192.0" text-anchor="end" >pencilSketch()</text>
+<rect class="track" x="316.0" y="182.0" width="290.0" height="12.0" rx="3" />
+<rect class="s1" x="316.0" y="182.0" width="18.1" height="12.0" rx="3" />
+<text class="ink small" x="616.0" y="192.0" text-anchor="start" >261 MiB</text>
+<text class="muted small" x="696.0" y="192.0" text-anchor="start" >1080p</text>
+<text class="mono ink" x="306.0" y="218.0" text-anchor="end" >stylization()</text>
+<rect class="track" x="316.0" y="208.0" width="290.0" height="12.0" rx="3" />
+<rect class="s1" x="316.0" y="208.0" width="18.0" height="12.0" rx="3" />
+<text class="ink small" x="616.0" y="218.0" text-anchor="start" >259 MiB</text>
+<text class="muted small" x="696.0" y="218.0" text-anchor="start" >1080p</text>
+<text class="mono ink" x="306.0" y="244.0" text-anchor="end" >edgePreservingFilter() NC</text>
+<rect class="track" x="316.0" y="234.0" width="290.0" height="12.0" rx="3" />
+<rect class="s1" x="316.0" y="234.0" width="17.0" height="12.0" rx="3" />
+<text class="ink small" x="616.0" y="244.0" text-anchor="start" >245 MiB</text>
+<text class="muted small" x="696.0" y="244.0" text-anchor="start" >1080p</text>
+<text class="mono ink" x="306.0" y="270.0" text-anchor="end" >detailEnhance()</text>
+<rect class="track" x="316.0" y="260.0" width="290.0" height="12.0" rx="3" />
+<rect class="s1" x="316.0" y="260.0" width="16.2" height="12.0" rx="3" />
+<text class="ink small" x="616.0" y="270.0" text-anchor="start" >234 MiB</text>
+<text class="muted small" x="696.0" y="270.0" text-anchor="start" >1080p</text>
+<text class="mono ink" x="306.0" y="296.0" text-anchor="end" >edgePreservingFilter() RF</text>
+<rect class="track" x="316.0" y="286.0" width="290.0" height="12.0" rx="3" />
+<rect class="s1" x="316.0" y="286.0" width="13.2" height="12.0" rx="3" />
+<text class="ink small" x="616.0" y="296.0" text-anchor="start" >190 MiB</text>
+<text class="muted small" x="696.0" y="296.0" text-anchor="start" >1080p</text>
+<text class="mono ink" x="306.0" y="322.0" text-anchor="end" >cuda::sqrIntegral()</text>
+<rect class="track" x="316.0" y="312.0" width="290.0" height="12.0" rx="3" />
+<rect class="s1" x="316.0" y="312.0" width="8.9" height="12.0" rx="3" />
+<text class="ink small" x="616.0" y="322.0" text-anchor="start" >127.6 MiB</text>
+<text class="muted small" x="696.0" y="322.0" text-anchor="start" >4K</text>
+<text class="mono ink" x="306.0" y="348.0" text-anchor="end" >TrackerCSRT::update()</text>
+<rect class="track" x="316.0" y="338.0" width="290.0" height="12.0" rx="3" />
+<rect class="s1" x="316.0" y="338.0" width="7.7" height="12.0" rx="3" />
+<text class="ink small" x="616.0" y="348.0" text-anchor="start" >110.8 MiB</text>
+<text class="muted small" x="696.0" y="348.0" text-anchor="start" >3840 × 2160</text>
+</svg>

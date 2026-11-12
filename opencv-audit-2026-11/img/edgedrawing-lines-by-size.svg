@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="360" viewBox="0 0 860 360" role="img">
+<title>Lines found by an EdgeDrawing detector reused after a 64x48 image, and by a fresh one</title><style>.bg{fill:#fcfcfb;stroke:#e1e0d9}.ink{fill:#0b0b0b}.ink2{fill:#52514e}.muted{fill:#898781}.grid{stroke:#e1e0d9}.axis{stroke:#c3c2b7}.track{fill:#e1e0d9}.s1{fill:#2a78d6}.s1l{stroke:#2a78d6}.bad{fill:#d03b3b}.badl{stroke:#d03b3b}.badt{fill:#b42318}.ok{fill:#0ca30c}.okt{fill:#067a06}.ref{stroke:#898781}.zone{fill:#d03b3b;fill-opacity:0.08}.v5{fill:#6f42c1}.v5l{stroke:#6f42c1}.v5t{fill:#6f42c1}.cell{stroke:#c3c2b7;fill:#fcfcfb}.past{fill:#d03b3b;fill-opacity:0.10;stroke:#d03b3b}@media (prefers-color-scheme: dark){.bg{fill:#1a1a19;stroke:#383835}.ink{fill:#f0efec}.ink2{fill:#c3c2b7}.grid{stroke:#2c2c2a}.axis{stroke:#383835}.track{fill:#2c2c2a}.s1{fill:#3987e5}.s1l{stroke:#3987e5}.badt{fill:#f07f7f}.v5{fill:#a371f7}.v5l{stroke:#a371f7}.v5t{fill:#b893fa}.okt{fill:#3ccf3c}.zone{fill-opacity:0.16}.cell{stroke:#4a4a47;fill:#1a1a19}.past{fill-opacity:0.22}}text{font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;font-size:13px}.mono{font-family:ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;font-size:12.5px}.small{font-size:11.5px}.b{font-weight:600}</style>
+<rect class="bg" x="0.5" y="0.5" width="859" height="359" rx="6"/>
+<text class="ink b" x="16.0" y="26.0" text-anchor="start" >Lines found in the same image: fresh detector, and one that first saw a 64 × 48 image</text>
+<text class="ink" x="126.0" y="72.0" text-anchor="end" >320 × 240</text>
+<rect class="muted" x="136.0" y="54.0" width="7.9" height="13.0" rx="3" />
+<text class="ink2 small" x="151.9" y="65.0" text-anchor="start" >229 fresh</text>
+<rect class="bad" x="136.0" y="71.0" width="18.2" height="13.0" rx="3" />
+<text class="badt small" x="162.2" y="82.0" text-anchor="start" >526 reused (+130%)</text>
+<text class="ink" x="126.0" y="118.0" text-anchor="end" >640 × 480</text>
+<rect class="muted" x="136.0" y="100.0" width="48.7" height="13.0" rx="3" />
+<text class="ink2 small" x="192.7" y="111.0" text-anchor="start" >1,409 fresh</text>
+<rect class="bad" x="136.0" y="117.0" width="53.1" height="13.0" rx="3" />
+<text class="badt small" x="197.1" y="128.0" text-anchor="start" >1,538 reused (+9%)</text>
+<text class="ink" x="126.0" y="164.0" text-anchor="end" >960 × 720</text>
+<rect class="muted" x="136.0" y="146.0" width="79.8" height="13.0" rx="3" />
+<text class="ink2 small" x="223.8" y="157.0" text-anchor="start" >2,311 fresh</text>
+<rect class="bad" x="136.0" y="163.0" width="88.5" height="13.0" rx="3" />
+<text class="badt small" x="232.5" y="174.0" text-anchor="start" >2,562 reused (+11%)</text>
+<text class="ink" x="126.0" y="210.0" text-anchor="end" >1280 × 960</text>
+<rect class="muted" x="136.0" y="192.0" width="94.3" height="13.0" rx="3" />
+<text class="ink2 small" x="238.3" y="203.0" text-anchor="start" >2,731 fresh</text>
+<rect class="bad" x="136.0" y="209.0" width="99.6" height="13.0" rx="3" />
+<text class="badt small" x="243.6" y="220.0" text-anchor="start" >2,885 reused (+6%)</text>
+<text class="ink" x="126.0" y="256.0" text-anchor="end" >1920 × 1440</text>
+<rect class="muted" x="136.0" y="238.0" width="222.9" height="13.0" rx="3" />
+<text class="ink2 small" x="366.9" y="249.0" text-anchor="start" >6,454 fresh</text>
+<rect class="bad" x="136.0" y="255.0" width="227.0" height="13.0" rx="3" />
+<text class="badt small" x="371.0" y="266.0" text-anchor="start" >6,573 reused (+2%)</text>
+<text class="ink" x="126.0" y="302.0" text-anchor="end" >2560 × 1920</text>
+<rect class="muted" x="136.0" y="284.0" width="539.6" height="13.0" rx="3" />
+<text class="ink2 small" x="683.6" y="295.0" text-anchor="start" >15,624 fresh</text>
+<rect class="bad" x="136.0" y="301.0" width="560.0" height="13.0" rx="3" />
+<text class="badt small" x="704.0" y="312.0" text-anchor="start" >16,214 reused (+4%)</text>
+</svg>
