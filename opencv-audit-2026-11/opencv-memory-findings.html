@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>OpenCV Memory Findings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* One column for a first-time reader: wrong results first, then crashes, leaks, and memory or time costs.
+   Every claim carries the output that proves it. No script: the page exports as one HTML file. */
+:root {
+  --bg: #f5f7f7; --surface: #ffffff; --fg: #15201f; --muted: #57686a; --line: #d6dfdf; --track: #e4eaea;
+  --accent: #0d6b70; --code-bg: #eef3f3; --out-bg: #f3f1ec; --out-line: #ddd6c8;
+  --bad: #b23a30; --bad-bg: #f8e4e1; --cost: #93580b; --cost-bg: #f7ead9; --fill: #c4772a;
+  --font-text: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1616; --surface: #151e1e; --fg: #e3ecea; --muted: #9aaba9; --line: #2a3736; --track: #223030;
+    --accent: #55c4c8; --code-bg: #192525; --out-bg: #1c1a16; --out-line: #3a3428;
+    --bad: #f08a80; --bad-bg: #3a1f1c; --cost: #f0b36b; --cost-bg: #3a2814; --fill: #d98d3e; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1616; --surface: #151e1e; --fg: #e3ecea; --muted: #9aaba9; --line: #2a3736; --track: #223030;
+  --accent: #55c4c8; --code-bg: #192525; --out-bg: #1c1a16; --out-line: #3a3428;
+  --bad: #f08a80; --bad-bg: #3a1f1c; --cost: #f0b36b; --cost-bg: #3a2814; --fill: #d98d3e; color-scheme: dark;
+}
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-text); font-size: 15.5px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 30px 64px;
+}
+.page { max-width: 940px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px; }
+section, header { display: flex; flex-direction: column; gap: 14px; min-width: 0; scroll-margin-top: 12px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; line-height: 1.25; }
+h1 { font-size: 1.95rem; font-weight: 600; letter-spacing: -0.01em; }
+h2 { font-size: 1.32rem; font-weight: 600; }
+h3 { font-size: 1.04rem; font-weight: 600; }
+p { margin: 0; max-width: 70ch; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+code { font-family: var(--font-data); font-size: 0.86em; background: var(--code-bg); padding: 0 3px; border-radius: 3px; overflow-wrap: anywhere; }
+pre { margin: 0; background: var(--code-bg); border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; overflow-x: auto; font-size: 0.8rem; line-height: 1.45; }
+pre code { background: none; padding: 0; overflow-wrap: normal; white-space: pre; }
+pre.out { background: var(--out-bg); border-color: var(--out-line); }
+.outwrap { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.outlabel { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); font-weight: 500; }
+ul { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 4px; max-width: 72ch; }
+.eyebrow { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 500; }
+.lede { font-size: 1.06rem; max-width: 68ch; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px; }
+.meta span { font-family: var(--font-data); font-size: 0.76rem; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 2px 8px; background: var(--surface); }
+.credit { font-size: 0.9rem; color: var(--muted); }
+.sub { color: var(--muted); font-size: 0.93rem; max-width: 72ch; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; }
+.tile { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; min-width: 0; text-decoration: none; color: var(--fg); }
+.tile:hover { border-color: var(--accent); }
+.tile .big { font-family: var(--font-data); font-size: 1.5rem; font-weight: 500; line-height: 1.15; }
+.tile .big.bad { color: var(--bad); }
+.tile .big.cost { color: var(--cost); }
+.tile .what { font-size: 0.87rem; color: var(--muted); }
+.cards { display: flex; flex-direction: column; gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--bad); border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; min-width: 0; scroll-margin-top: 12px; }
+.where { display: flex; flex-wrap: wrap; gap: 6px; align-items: baseline; font-family: var(--font-data); font-size: 0.76rem; color: var(--muted); }
+.tag { display: inline-block; font-family: var(--font-data); font-size: 0.72rem; line-height: 1.5; padding: 0 7px; border-radius: 10px; white-space: nowrap; background: var(--bad-bg); color: var(--bad); }
+.kv { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 4px 14px; font-size: 0.92rem; margin: 0; }
+.kv dt { color: var(--muted); font-size: 0.84rem; padding-top: 1px; }
+.kv dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+details > summary { cursor: pointer; color: var(--accent); font-size: 0.87rem; }
+details[open] > summary { margin-bottom: 8px; }
+figure { margin: 0; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+figcaption { font-size: 0.86rem; color: var(--muted); max-width: 72ch; }
+.shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+.shot { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.shot img { width: 100%; max-width: 480px; height: auto; image-rendering: pixelated; border: 1px solid var(--line); border-radius: 3px; display: block; }
+.shot .cap { font-family: var(--font-data); font-size: 0.75rem; color: var(--muted); }
+.shot.wrong .cap { color: var(--bad); }
+.swatches { display: flex; flex-wrap: wrap; gap: 12px; }
+.swatch { display: flex; flex-direction: column; gap: 4px; width: 120px; }
+.swatch img { width: 120px; height: 120px; image-rendering: pixelated; border: 1px solid var(--line); border-radius: 3px; display: block; }
+.swatch .cap { font-family: var(--font-data); font-size: 0.72rem; color: var(--muted); line-height: 1.35; }
+.swatch.wrong .cap { color: var(--bad); }
+.bars { display: grid; grid-template-columns: max-content minmax(0, 1fr) max-content; gap: 5px 10px; align-items: center; font-family: var(--font-data); font-size: 0.78rem; }
+.bars .lab { color: var(--muted); text-align: right; white-space: nowrap; }
+.bars .track { height: 16px; background: var(--track); border-radius: 3px; min-width: 0; }
+.bars .fill { height: 100%; background: var(--fill); border-radius: 3px; min-width: 2px; }
+.bars .v { white-space: nowrap; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: 0.88rem; }
+th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+th { font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 500; background: var(--bg); }
+tr:last-child td { border-bottom: none; }
+td.num { font-family: var(--font-data); font-size: 0.82rem; }
+td .mod { display: block; font-family: var(--font-data); font-size: 0.72rem; color: var(--muted); }
+td.why { color: var(--muted); font-size: 0.84rem; }
+.note { font-size: 0.86rem; color: var(--muted); max-width: 72ch; }
+@media (max-width: 560px) {
+  h1 { font-size: 1.6rem; }
+  .kv { grid-template-columns: 1fr; gap: 0 0; }
+  .kv dt { padding-top: 6px; }
+  .bars { font-size: 0.72rem; }
+}
+@page { size: A4; margin: 12mm; }
+@media print {
+  body { padding-block: 0; font-size: 10pt; }
+  .page { gap: 22px; max-width: none; }
+  .tablewrap { overflow: visible; border: none; }
+  table { min-width: 0; font-size: 8pt; }
+  pre { white-space: pre-wrap; overflow: visible; font-size: 7.4pt; }
+  pre code { white-space: pre-wrap; }
+  .card, figure, tr { break-inside: avoid; }
+  a { text-decoration: none; }
+}
+</style>
+
+</head>
+<body>
+<div class="page">
+
+<header>
+  <p class="eyebrow">Attachment for an OpenCV issue</p>
+  <h1>Memory and correctness problems in OpenCV 4.x</h1>
+  <p class="lede">An audit of opencv and opencv_contrib 4.x turned up the problems below, and each one was reproduced on the unmodified code. Wrong results and crashes are shown with the failing check or the sanitizer report. Memory and time are shown with numbers measured in a fresh process. This page shows the problems only; the fixes are linked at the end.</p>
+  <div class="meta"><span>opencv 4.x 2853bdc</span><span>opencv_contrib 4.x 2f5266f</span><span>Linux x86-64 · GCC 15.2</span><span>24 threads unless noted</span></div>
+  <p class="credit">Prepared by <a href="https://github.com/pctablet505">@pctablet505</a>. The audit and the measurements were done with an AI assistant (Claude); every result on this page was reproduced by running the code.</p>
+</header>
+
+<nav class="tiles" aria-label="Sections">
+  <a class="tile" href="#wrong"><span class="big bad">7</span><span class="what">wrong results, with no error raised</span></a>
+  <a class="tile" href="#crash"><span class="big bad">5</span><span class="what">crashes, memory errors and a failing default</span></a>
+  <a class="tile" href="#leaks"><span class="big cost">8</span><span class="what">places where memory is never released</span></a>
+  <a class="tile" href="#memory"><span class="big cost">26</span><span class="what">calls that use far more memory or time than they need</span></a>
+</nav>
+
+<section id="wrong">
+  <h2>Wrong results, with no error raised</h2>
+  <p class="sub">These return normally, so nothing tells the caller the output is wrong.</p>
+  <div class="cards">
+
+  <article class="card" id="nc-large">
+    <div class="where"><span class="tag">wrong output</span><span>photo · <code>edgePreservingFilter(NORMCONV_FILTER)</code>, <code>stylization()</code></span></div>
+    <h3>Images above about 5.6 megapixels come out wrong</h3>
+    <p>The normalized-convolution filter keeps its summed-area-table positions as float indices over all rows and channels. Past 2<sup>24</sup> a float cannot hold every integer, so the filter reads neighbouring values. It happens when 3 · max(rows · (cols + 1), cols · (rows + 1)) &gt; 2<sup>24</sup>. The smallest square that triggers it is 2365 × 2365, so 4K frames and 12 MP phone photos are affected; 2560 × 1440 is not.</p>
+    <figure>
+      <div class="shots">
+        <div class="shot"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAABgCAIAAABKcTauAAACD0lEQVR4Ae3BMQEAIAgAMGhjCBJTyNubEtbg2JbzbgCwT867AcA+Oe8GAPvkvBsA7JPzbgCwT867AcA+2acCgH2yTwUA+2SfCgD2yT4VAOyTfSoA2Cf7VACwT867AcA+Oe8GAPvkvBsA7JPzbgCwT867AcA+Oe8GAPtknwoA9sk+FQDsk30qANgn+1QAsE/2qQBgn+xTAcA+Oe8GAPvkvBsA7JPzbgCwT867AcA+Oe8GAPvkvBsA7JN9KgDYJ/tUALBP9qkAYJ/sUwHAPtmnAoB9sk8FAPvkvBsA7JPzbgCwT867AcA+Oe8GAPvkvBsA7JPzbgCwT/apAGCf7FMBwD7ZpwKAfbJPBQD7ZJ8KAPbJPhUA7JPzbgCwT867AcA+Oe8GAPvkvBsA7JPzbgCwT867AcA+2acCgH2yTwUA+2SfCgD2yT4VAOyTfSoA2Cf7VACwT867AcA+Oe8GAPvkvBsA7JPzbgCwT867AcA+Oe8GAPtknwoA9sk+FQDsk30qANgn+1QAsE/2qQBgn+xTAcA+Oe8GAPvkvBsA7JPzbgCwT867AcA+Oe8GAPvkvBsA7JN9KgDYJ/tUALBP9qkAYJ/sUwHAPtmnAoB9sk8FAPvkvBsA7JPzbgCwT867AcA+Oe8GAPvkvBsA7JPzbgCwT/apAGCf7FMBwD7ZpwKAfbJPBQD7ZJ8KAPbJPhUA7PMBdR+xkQOXkigAAAAASUVORK5CYII=" width="480" height="96" alt="Input: horizontal bands, six rows each, alternating dark red and off-white."><span class="cap">input: every row one colour</span></div>
+        <div class="shot"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAABgCAIAAABKcTauAAACD0lEQVR4Ae3BMQEAIAgAMGhjCBJTyNubEtbg2JbzbgCwT867AcA+Oe8GAPvkvBsA7JPzbgCwT867AcA+2acCgH2yTwUA+2SfCgD2yT4VAOyTfSoA2Cf7VACwT867AcA+Oe8GAPvkvBsA7JPzbgCwT867AcA+Oe8GAPtknwoA9sk+FQDsk30qANgn+1QAsE/2qQBgn+xTAcA+Oe8GAPvkvBsA7JPzbgCwT867AcA+Oe8GAPvkvBsA7JN9KgDYJ/tUALBP9qkAYJ/sUwHAPtmnAoB9sk8FAPvkvBsA7JPzbgCwT867AcA+Oe8GAPvkvBsA7JPzbgCwT/apAGCf7FMBwD7ZpwKAfbJPBQD7ZJ8KAPbJPhUA7JPzbgCwT867AcA+Oe8GAPvkvBsA7JPzbgCwT867AcA+2acCgH2yTwUA+2SfCgD2yT4VAOyTfSoA2Cf7VACwT867AcA+Oe8GAPvkvBsA7JPzbgCwT867AcA+Oe8GAPtknwoA9sk+FQDsk30qANgn+1QAsE/2qQBgn+xTAcA+Oe8GAPvkvBsA7JPzbgCwT867AcA+Oe8GAPvkvBsA7JN9KgDYJ/tUALBP9qkAYJ/sUwHAPtmnAoB9sk8FAPvkvBsA7JPzbgCwT867AcA+Oe8GAPvkvBsA7JPzbgCwT/apAGCf7FMBwD7ZpwKAfbJPBQD7ZJ8KAPbJPhUA7PMBdR+xkQOXkigAAAAASUVORK5CYII=" width="480" height="96" alt="Expected output: the same red and off-white bands."><span class="cap">expected: same rows, 1000 px wide</span></div>
+        <div class="shot wrong"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAABgCAIAAABKcTauAAAQM0lEQVR4Ae3BsUmEQRgFwPlaMbIDu7Aqq7Emk4sN7GCfyYNFEOS4P3Nn5vP2xou/jS1ExRaiQlSIClFhqRAVohZRYanwocJSISosFaJC1CIqRC2iQtQiKjyp8bvxw9jGNraxjW3U2IZxn3GBcZ9xjXEc/8Z83t548bexhajYQlSIClEhKiwVokLUIiosFT5UWCpEhaVCVIhaRIWoRVSIWkSFJzV+N34Y29jGNraxjRrbMO4zLjDuM64xjuPfmM/bGy/+NrYQFVuIClEhKkSFpUJUiFpEhaXChwpLhaiwVIgKUYuoELWIClGLqPCkxu/GD2Mb29jGNrZRYxvGfcYFxn3GNcZx/BvzeXvjxd/GFqJiC1EhKkSFqLBUiApRi6iwVPhQYakQFZYKUSFqERWiFlEhahEVntT43fhhbGMb29jGNmpsw7jPuMC4z7jGOI5/Yz5vb7z429hCVGwhKkSFqBAVlgpRIWoRFZYKHyosFaLCUiEqRC2iQtQiKkQtosKTGr8bP4xtbGMb29hGjW0Y9xkXGPcZ1xjH8W/M5+2NF38bW4iKLUSFqBAVosJSISpELaLCUuFDhaVCVFgqRIWoRVSIWkSFqEVUeFLjd+OHsY1tbGMb26ixDeM+4wLjPuMa4zj+jXl/fuXLQ+I4juO42rw/v/LlIXEcx3Fcbd6fX/nykDiO4ziuNu/Pr3x5SBzHcRxXm/fnV748JI7jOI6rzfvzK18eEsdxHMfV5vP2xou/jS1ExRaiQlSIClFhqRAVohZRYanwocJSISosFaJC1CIqRC2iQtQiKjyp8bvxw9jGNraxjW3U2IZxn3GBcZ9xjXEc/8Z83t548bexhajYQlSIClEhKiwVokLUIiosFT5UWCpEhaVCVIhaRIWoRVSIWkSFJzV+N34Y29jGNraxjRrbMO4zLjDuM64xjuPfmM/bGy/+NrYQFVuIClEhKkSFpUJUiFpEhaXChwpLhaiwVIgKUYuoELWIClGLqPCkxu/GD2Mb29jGNrZRYxvGfcYFxn3GNcZx/BvzeXvjxd/GFqJiC1EhKkSFqLBUiApRi6iwVPhQYakQFZYKUSFqERWiFlEhahEVntT43fhhbGMb29jGNmpsw7jPuMC4z7jGOI5/Yz5vb7z429hCVGwhKkSFqBAVlgpRIWoRFZYKHyosFaLCUiEqRC2iQtQiKkQtosKTGr8bP4xtbGMb29hGjW0Y9xkXGPcZ1xjH8W/M5+2NF38bW4iKLUSFqBAVosJSISpELaLCUuFDhaVCVFgqRIWoRVSIWkSFqEVUeFLjd+OHsY1tbGMb26ixDeM+4wLjPuMa4zj+jXl/fuXLQ+I4juO42rw/v/LlIXEcx3Fcbd6fX/nykDiO4ziuNu/Pr3x5SBzHcRxXm/fnV748JI7jOI6rzfvzK18eEsdxHMfV5vP2xou/jS1ExRaiQlSIClEhahEVohZRYanwocJSISosFaJC1CIqRC2iQtQiKjyp8bvxw9jGNraxjW3U2IZxn3GBcZ9xjXEc/8Z83t548bexhajYQlSIClEhKkQtokLUIiosFT5UWCpEhaVCVIhaRIWoRVSIWkSFJzV+N34Y29jGNraxjRrbMO4zLjDuM64xjuPfmM/bGy/+NrYQFVuIClEhKkSFqEVUiFpEhaXChwpLhaiwVIgKUYuoELWIClGLqPCkxu/GD2Mb29jGNrZRYxvGfcYFxn3GNcZx/BvzeXvjxd/GFqJiC1EhKkSFqBC1iApRi6iwVPhQYakQFZYKUSFqERWiFlEhahEVntT43fhhbGMb29jGNmpsw7jPuMC4z7jGOI5/Yz5vb7z429hCVGwhKkSFqBAVohZRIWoRFZYKHyosFaLCUiEqRC2iQtQiKkQtosKTGr8bP4xtbGMb29hGjW0Y9xkXGPcZ1xjH8W/M5+2NF38bW4iKLUSFqBAVokLUIipELaLCUuFDhaVCVFgqRIWoRVSIWkSFqEVUeFLjd+OHsY1tbGMb26ixDeM+4wLjPuMa4zj+jXl/fuXLQ+I4juO42rw/v/LlIXEcx3Fcbd6fX/nykDiO4ziuNu/Pr3x5SBzHcRxXm/fnV748JI7jOI6rzfvzK18eEsdxHMfV5vP2xou/jS1ExRaiQlSIClEhahEVohZRYanwocJSISosFaJC1CIqRC2iQtQiKjyp8bvxw9jGNraxjW3U2IZxn3GBcZ9xjXEc/8Z83t548bexhajYQlSIClEhKkQtokLUIiosFT5UWCpEhaVCVIhaRIWoRVSIWkSFJzV+N34Y29jGNraxjRrbMO4zLjDuM64xjuPfmM/bGy/+NrYQFVuIClEhKkSFqEVUiFpEhaXChwpLhaiwVIgKUYuoELWIClGLqPCkxu/GD2Mb29jGNrZRYxvGfcYFxn3GNcZx/BvzeXvjxd/GFqJiC1EhKkSFqBC1iApRi6iwVPhQYakQFZYKUSFqERWiFlEhahEVntT43fhhbGMb29jGNmpsw7jPuMC4z7jGOI5/Yz5vb7z429hCVGwhKkSFqBAVohZRIWoRFZYKHyosFaLCUiEqRC2iQtQiKkQtosKTGr8bP4xtbGMb29hGjW0Y9xkXGPcZ1xjH8W/M5+2NF38bW4iKLUSFqBAVokLUIipELaLCUuFDhaVCVFgqRIWoRVSIWkSFqEVUeFLjd+OHsY1tbGMb26ixDeM+4wLjPuMa4zj+jXl/fuXLQ+I4juO42rw/v/LlIXEcx3Fcbd6fX/nykDiO4ziuNu/Pr3x5SBzHcRxXm/fnV748JI7jOI6rzfvzK18eEsdxHMfV5vP2xou/jS1ExRaiQlSIClEhahEVohZRYanwocJSISosFaJC1CIqRC2iQtQiKjyp8bvxw9jGNraxjW3U2IZxn3GBcZ9xjXEc/8Z83t548bexhajYQlSIClEhKkQtokLUIiosFT5UWCpEhaVCVIhaRIWoRVSIWkSFJzV+N34Y29jGNraxjRrbMO4zLjDuM64xjuPfmM/bGy/+NrYQFVuIClEhKkSFqEVUiFpEhaXChwpLhaiwVIgKUYuoELWIClGLqPCkxu/GD2Mb29jGNrZRYxvGfcYFxn3GNcZx/BvzeXvjxd/GFqJiC1EhKkSFqBC1iApRi6iwVPhQYakQFZYKUSFqERWiFlEhahEVntT43fhhbGMb29jGNmpsw7jPuMC4z7jGOI5/Yz5vb7z429hCVGwhKkSFqBAVohZRIWoRFZYKHyosFaLCUiEqRC2iQtQiKkQtosKTGr8bP4xtbGMb29hGjW0Y9xkXGPcZ1xjH8W/M5+2NF38bW4iKLUSFqBAVokLUIipELaLCUuFDhaVCVFgqRIWoRVSIWkSFqEVUeFLjd+OHsY1tbGMb26ixDeM+4wLjPuMa4zj+jXl/fuXLQ+I4juO42rw/v/LlIXEcx3Fcbd6fX/nykDiO4ziuNu/Pr3x5SBzHcRxXm/fnV748JI7jOI6rzfvzK18eEsdxHMfV5vP2xou/jS1ExRaiQlSIClEhahEVohZRYanwocJSISosFaJC1CIqRC2iQtQiKjyp8bvxw9jGNraxjW3U2IZxn3GBcZ9xjXEc/8Z83t548bexhajYQlSIClEhKkQtokLUIiosFT5UWCpEhaVCVIhaRIWoRVSIWkSFJzV+N34Y29jGNraxjRrbMO4zLjDuM64xjuPfmM/bGy/+NrYQFVuIClEhKkSFqEVUiFpEhaXChwpLhaiwVIgKUYuoELWIClGLqPCkxu/GD2Mb29jGNrZRYxvGfcYFxn3GNcZx/BvzeXvjxd/GFqJiC1EhKkSFqBC1iApRi6iwVPhQYakQFZYKUSFqERWiFlEhahEVntT43fhhbGMb29jGNmpsw7jPuMC4z7jGOI5/Yz5vb7z429hCVGwhKkSFqBAVohZRIWoRFZYKHyosFaLCUiEqRC2iQtQiKkQtosKTGr8bP4xtbGMb29hGjW0Y9xkXGPcZ1xjH8W/M5+2NF38bW4iKLUSFqBAVokLUIipELaLCUuFDhaVCVFgqRIWoRVSIWkSFqEVUeFLjd+OHsY1tbGMb26ixDeM+4wLjPuMa4zj+jXl/fuXLQ+I4juO42rw/v/LlIXEcx3Fcbd6fX/nykDiO4ziuNu/Pr3x5SBzHcRxXm/fnV748JI7jOI6rzfvzK18eEsdxHMfV5vP2xou/jS1ExRaiQlSIClEhahEVohZRYanwocJSISosFaJC1CIqRC2iQtQiKjyp8bvxw9jGNraxjW3U2IZxn3GBcZ9xjXEc/8Z83t548bexhajYQlSIClEhKkQtokLUIiosFT5UWCpEhaVCVIhaRIWoRVSIWkSFJzV+N34Y29jGNraxjRrbMO4zLjDuM64xjuPfmM/bGy/+NrYQFVuIClEhKkSFqEVUiFpEhaXChwpLhaiwVIgKUYuoELWIClGLqPCkxu/GD2Mb29jGNrZRYxvGfcYFxn3GNcZx/BvzeXvjxd/GFqJiC1EhKkSFqBC1iApRi6iwVPhQYakQFZYKUSFqERWiFlEhahEVntT43fhhbGMb29jGNmpsw7jPuMC4z7jGOI5/Yz5vb7z429hCVGwhKkSFqBAVohZRIWoRFZYKHyosFaLCUiEqRC2iQtQiKkQtosKTGr8bP4xtbGMb29hGjW0Y9xkXGPcZ1xjH8W/M5+2NF38bW4iKLUSFqBAVokLUIipELaLCUuFDhaVCVFgqRIWoRVSIWkSFqEVUeFLjd+OHsY1tbGMb26ixDeM+4wLjPuMa4zj+jXl/fuXLQ+I4juO42rw/v/LlIXEcx3Fcbd6fX/nykDiO4ziuNu/Pr3x5SBzHcRxXm/fnV748JI7jOI6rzfvzK18eEsdxHMfV5vP2xou/jS1ExRaiQlSIClEhahEVohZRYanwocJSISosFaJC1CIqRC2iQtQiKjyp8bvxw9jGNraxjW3U2IZxn3GBcZ9xjXEc/8Z83t548bexhajYQlSIClEhKkQtokLUIiosFT5UWCpEhaVCVIhaRIWoRVSIWkSFJzV+N34Y29jGNraxjRrbMO4zLjDuM64xjuPfmM/bGy/+NrYQFVuIClEhKkSFqEVUiFpEhaXChwpLhaiwVIgKUYuoELWIClGLqPCkxu/GD2Mb29jGNrZRYxvGfcYFxn3GNcZx/BvzeXvjxd/GFqJiC1EhKkSFqBC1iApRi6iwVPhQYakQFZYKUSFqERWiFlEhahEVntT43fhhbGMb29jGNmpsw7jPuMC4z7jGOI5/Yz5vb7z429hCVGwhKkSFqBAVohZRIWoRFZYKHyosFaLCUiEqRC2iQtQiKkQtosKTGr8bP4xtbGMb29hGjW0Y9xkXGPcZ1xjH8W/M5+2NF38bW4iKLUSFqBAVokLUIipELaLCUuFDhaVCVFgqRIWoRVSIWkSFqEVUeFLjd+OHsY1tbGMb26ixDeM+4wLjPuMa4zj+jXl/fuXLQ+I4juO42rw/v/LlIXEcx3Fcbd6fX/nykDiO4ziuNu/Pr3x5SBzHcRxXm/fnV748JI7jOI6rzfvzK18eEsdxHMfVvgEOvkXoXD4n4AAAAABJRU5ErkJggg==" width="480" height="96" alt="Actual 3840 by 2160 output: the light bands are yellow, and a strip on the left has other colours."><span class="cap">4.x output at 3840 × 2160</span></div>
+      </div>
+      <figcaption>Crops of 480 × 96 pixels at x = 0, y = 1080. Every input row is one colour, so the right answer at any width is the result for the same rows at 1000 px, repeated along each row. At 3840 × 2160, 4,148,844 of 8,294,400 pixels (50%) are wrong, by up to 116 levels: light rows come out BGR (150, 225, 235) instead of (215, 225, 235). At 2560 × 1440 the same check finds 0 wrong pixels.</figcaption>
+    </figure>
+    <dl class="kv">
+      <dt>Who hits it</dt><dd>Anyone filtering or stylizing 4K video or full-resolution photos.</dd>
+      <dt>Source</dt><dd><a href="https://github.com/opencv/opencv/blob/2853bdce0d2cbad3d1009b3c88758cbd93d29300/modules/photo/src/npr.hpp#L226-L301">npr.hpp:226-301</a> keeps the indices as <code>CV_32F</code>; <a href="https://github.com/opencv/opencv/blob/2853bdce0d2cbad3d1009b3c88758cbd93d29300/modules/photo/src/npr.hpp#L340-L390">:340-390</a> decodes them.</dd>
+    </dl>
+    <details><summary>Reproduce</summary>
+<pre><code>auto bands = [](int w) {               // 2160 rows, 6-row bands, each row one colour
+    cv::Mat m(2160, w, CV_8UC3);
+    for (int i = 0; i &lt; m.rows; i++)
+        m.row(i).setTo((i / 6) % 2 ? cv::Scalar(60, 40, 170) : cv::Scalar(215, 225, 235));
+    return m;
+};
+cv::Mat out, narrow, expected;
+cv::edgePreservingFilter(bands(3840), out, cv::NORMCONV_FILTER);
+cv::edgePreservingFilter(bands(1000), narrow, cv::NORMCONV_FILTER);  // below the limit
+cv::repeat(narrow.col(0), 1, 3840, expected);  // uniform rows: same result at any width
+std::cout &lt;&lt; cv::norm(out, expected, cv::NORM_INF) &lt;&lt; "\n";  // 4.x: 116, expected 0</code></pre>
+    </details>
+  </article>
+
+  <article class="card" id="nc-small">
+    <div class="where"><span class="tag">wrong output</span><span>photo · <code>edgePreservingFilter(NORMCONV_FILTER)</code>, <code>stylization()</code></span></div>
+    <h3>Small, nearly flat images come out black</h3>
+    <p>For the first pixel of each row, the search for the end of its box stops at <code>w</code> instead of <code>w + 1</code>. When a whole row lies within the filter radius, as in a flat image under about 91 px wide at the default <code>sigma_s = 60</code>, that box is empty, 0/0 gives NaN, and the NaN spreads. This is the cause of <a href="https://github.com/opencv/opencv/issues/29614">opencv#29614</a>; on 5.x, <a href="https://github.com/opencv/opencv/pull/29629">#29629</a> skips only rows of width 1, and 4.x has no guard.</p>
+    <figure>
+      <div class="swatches">
+        <div class="swatch"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAIAAADdvvtQAAAC0UlEQVR4Ae3BMQEAAAzCsOEVTWhC1jxwN1HjA1ZqfMBKjQ9YqfEBKzU+YKXGB6zU+ICVGh+wUuMDVmp8wEqND1ip8QErNT5gpcYHrNT4gJUaH7BS4wNWanzASo0PWKnxASs1PmClxges1PiAlRofsFLjA1ZqfMBKjQ9YqfEBKzU+YKXGB6zU+ICVGh+wUuMDVmp8wEqND1ip8QErNT5gpcYHrNT4gJUaH7BS4wNWanzASo0PWKnxASs1PmClxges1PiAlRofsFLjA1ZqfMBKjQ9YqfEBKzU+YKXGB6zU+ICVGh+wUuMDVmp8wEqND1ip8QErNT5gpcYHrNT4gJUaH7BS4wNWanzASo0PWKnxASs1PmClxges1PiAlRofsFLjA1ZqfMBKjQ9YqfEBKzU+YKXGB6zU+ICVGh+wUuMDVmp8wEqND1ip8QErNT5gpcYHrNT4gJUaH7BS4wNWanzASo0PWKnxASs1PmClxges1PiAlRofsFLjA1ZqfMBKjQ9YqfEBKzU+YKXGB6zU+ICVGh+wUuMDVmp8wEqND1ip8QErNT5gpcYHrNT4gJUaH7BS4wNWanzASo0PWKnxASs1PmClxges1PiAlRofsFLjA1ZqfMBKjQ9YqfEBKzU+YKXGB6zU+ICVGh+wUuMDVmp8wEqND1ip8QErNT5gpcYHrNT4gJUaH7BS4wNWanzASo0PWKnxASs1PmClxges1PiAlRofsFLjA1ZqfMBKjQ9YqfEBKzU+YKXGB6zU+ICVGh+wUuMDVmp8wEqND1ip8QErNT5gpcYHrNT4gJUaH7BS4wNWanzASo0PWKnxASs1PmClxges1PiAlRofsFLjA1ZqfMBKjQ9YqfEBKzU+YKXGB6zU+ICVGh+wUuMDVmp8wEqND1ip8QErNT5gpcYHrNT4gJUaH7BS4wNWanzASo0PWKnxASs1PmClxges1PiAlRofsHo5jlJQG8prFwAAAABJRU5ErkJggg==" width="120" height="120" alt="Input: a flat tan 64 by 64 image."><span class="cap">input 64 × 64<br>BGR (100, 150, 200)</span></div>
+        <div class="swatch wrong"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAIAAADdvvtQAAABrklEQVR4Ae3BMQEAAACDoNm/9EL4CiwRWCKwRGCJwBKBJQJLBJYILBFYIrBEYInAEoElAksElggsEVgisERgicASgSUCSwSWCCwRWCKwRGCJwBKBJQJLBJYILBFYIrBEYInAEoElAksElggsEVgisERgicASgSUCSwSWCCwRWCKwRGCJwBKBJQJLBJYILBFYIrBEYInAEoElAksElggsEVgisERgicASgSUCSwSWCCwRWCKwRGCJwBKBJQJLBJYILBFYIrBEYInAEoElAksElggsEVgisERgicASgSUCSwSWCCwRWCKwRGCJwBKBJQJLBJYILBFYIrBEYInAEoElAksElggsEVgisERgicASgSUCSwSWCCwRWCKwRGCJwBKBJQJLBJYILBFYIrBEYInAEoElAksElggsEVgisERgicASgSUCSwSWCCwRWCKwRGCJwBKBJQJLBJYILBFYIrBEYInAEoElAksElggsEVgisERgicASgSUCSwSWCCwRWCKwRGCJwBKBJQJLBJYILBFYIrBEYInAEoElAksElggsEVgisERgicASgSUCSwSWCAfavADBZFPWEgAAAABJRU5ErkJggg==" width="120" height="120" alt="edgePreservingFilter output: all black."><span class="cap">edgePreservingFilter<br>mean (0, 0, 0)</span></div>
+        <div class="swatch wrong"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAIAAADdvvtQAAABrklEQVR4Ae3BMQEAAACDoNm/9EL4CiwRWCKwRGCJwBKBJQJLBJYILBFYIrBEYInAEoElAksElggsEVgisERgicASgSUCSwSWCCwRWCKwRGCJwBKBJQJLBJYILBFYIrBEYInAEoElAksElggsEVgisERgicASgSUCSwSWCCwRWCKwRGCJwBKBJQJLBJYILBFYIrBEYInAEoElAksElggsEVgisERgicASgSUCSwSWCCwRWCKwRGCJwBKBJQJLBJYILBFYIrBEYInAEoElAksElggsEVgisERgicASgSUCSwSWCCwRWCKwRGCJwBKBJQJLBJYILBFYIrBEYInAEoElAksElggsEVgisERgicASgSUCSwSWCCwRWCKwRGCJwBKBJQJLBJYILBFYIrBEYInAEoElAksElggsEVgisERgicASgSUCSwSWCCwRWCKwRGCJwBKBJQJLBJYILBFYIrBEYInAEoElAksElggsEVgisERgicASgSUCSwSWCCwRWCKwRGCJwBKBJQJLBJYILBFYIrBEYInAEoElAksElggsEVgisERgicASgSUCSwSWCAfavADBZFPWEgAAAABJRU5ErkJggg==" width="120" height="120" alt="stylization output: all black."><span class="cap">stylization<br>mean (0, 0, 0)</span></div>
+        <div class="swatch"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAIAAACb4TnXAAAEvUlEQVR4Ae3BMQEAAAzCsOEVTWhC1lTwNVHjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2FDjA7ChxgdgQ40PwIYaH4ANNT4AG2p8ADbU+ABsqPEB2HjVWftwX5k5WAAAAABJRU5ErkJggg==" width="120" height="120" alt="edgePreservingFilter on a 96 by 96 version: unchanged tan."><span class="cap">same at 96 × 96<br>(100, 150, 200)</span></div>
+      </div>
+      <figcaption>Output of the unmodified filters, enlarged. A check over seven flat sizes from 1 × 1 to 91 × 91, for both functions, fails 14 of 14 times on 4.x (the output is 200 levels off).</figcaption>
+    </figure>
+    <dl class="kv">
+      <dt>Who hits it</dt><dd>Thumbnails, small ROIs and narrow strips; any row that is flat or low in contrast and narrower than about 91 px.</dd>
+      <dt>Source</dt><dd><a href="https://github.com/opencv/opencv/blob/2853bdce0d2cbad3d1009b3c88758cbd93d29300/modules/photo/src/npr.hpp#L257-L263">npr.hpp:257-263</a>, the first pixel's upper search.</dd>
+    </dl>
+    <details><summary>Reproduce</summary>
+<pre><code>cv::Mat src(64, 64, CV_8UC3, cv::Scalar(100, 150, 200)), dst;
+cv::edgePreservingFilter(src, dst, cv::NORMCONV_FILTER);
+std::cout &lt;&lt; cv::mean(dst) &lt;&lt; "\n";  // 4.x: [0, 0, 0, 0]; at 96 x 96: [100, 150, 200, 0]</code></pre>
+    </details>
+  </article>
+
+  <article class="card" id="kaze">
+    <div class="where"><span class="tag">wrong output</span><span>features2d · <code>KAZE::compute()</code></span></div>
+    <h3>KAZE describes given keypoints differently from <code>detectAndCompute()</code></h3>
+    <p>With keypoints supplied, detection is skipped, and with it the step that computes the scale-normalized derivatives. Orientation and descriptors then read the derivatives left over from the conductivity step, which are not normalized.</p>
+    <div class="outwrap"><span class="outlabel">Output on 4.x</span>
+<pre class="out"><code>detectAndCompute(tsukuba.png) vs compute() on the same keypoints
+max |descriptor difference| = 0.556665        (expected 0)
+1280 x 720 synthetic image, 21 keypoints: mean |difference| 0.024
+against a mean |descriptor| of 0.103; max 0.314</code></pre></div>
+    <dl class="kv">
+      <dt>Who hits it</dt><dd>Pipelines that describe keypoints from another detector, from tracking, or from a cache.</dd>
+      <dt>Source</dt><dd><a href="https://github.com/opencv/opencv/blob/2853bdce0d2cbad3d1009b3c88758cbd93d29300/modules/features2d/src/kaze.cpp#L153-L156">kaze.cpp:153-156</a> skips detection; the derivatives are computed only inside it, at <a href="https://github.com/opencv/opencv/blob/2853bdce0d2cbad3d1009b3c88758cbd93d29300/modules/features2d/src/kaze/KAZEFeatures.cpp#L161-L167">KAZEFeatures.cpp:161-167</a>.</dd>
+    </dl>
+    <details><summary>Reproduce</summary>
+<pre><code>cv::Mat img = cv::imread("tsukuba.png", cv::IMREAD_GRAYSCALE);  // opencv_extra/testdata/features2d
+cv::Ptr&lt;cv::KAZE&gt; kaze = cv::KAZE::create();
+std::vector&lt;cv::KeyPoint&gt; kp;
+cv::Mat d1, d2;
+kaze-&gt;detectAndCompute(img, cv::noArray(), kp, d1);
+kaze-&gt;compute(img, kp, d2);
+std::cout &lt;&lt; cv::norm(d1, d2, cv::NORM_INF) &lt;&lt; "\n";  // 4.x: 0.556665, expected 0</code></pre>
+    </details>
+  </article>
+
+  <article class="card" id="dnn-same">
+    <div class="where"><span class="tag">wrong output</span><span>dnn · <code>Net</code> reused across input sizes</span></div>
+    <h3>Stride-2 SAME convolutions give wrong output after the input size changes</h3>
+    <p>SAME padding depends on the input size. On a new input shape the layer recomputes its pads, but in three cases it keeps the packed convolution built with the old pads: 2-D convolutions on inputs under 12 px, all 1-D and 3-D convolutions, and every convolution after <code>enableWinograd(false)</code>.</p>
+    <div class="outwrap"><span class="outlabel">Output on 4.x: one 3 × 3, stride-2 SAME convolution, compared with a fresh Net</span>
+<pre class="out"><code>input 10x10, then 9x9:  max |difference| = 4.60507   (expected 0)
+input 9x9, then 10x10:  max |difference| = 6.50663   (expected 0)</code></pre></div>
+    <dl class="kv">
+      <dt>Who hits it</dt><dd>Apps that feed one Net several input sizes, such as video at changing resolution or multi-scale inference.</dd>
+      <dt>Source</dt><dd><a href="https://github.com/opencv/opencv/blob/2853bdce0d2cbad3d1009b3c88758cbd93d29300/modules/dnn/src/layers/convolution_layer.cpp#L453-L458">convolution_layer.cpp:453-458</a>: the only place the packed convolution is reset, through the Winograd check.</dd>
+    </dl>
+    <details><summary>Reproduce</summary>
+<pre><code>cv::dnn::LayerParams lp;
+lp.type = "Convolution"; lp.name = "conv";
+lp.set("kernel_size", 3); lp.set("stride", 2); lp.set("num_output", 4);
+lp.set("pad_mode", "SAME"); lp.set("bias_term", false);
+int ws[] = {4, 3, 3, 3}; cv::Mat w(4, ws, CV_32F); cv::randu(w, -1, 1); lp.blobs.push_back(w);
+int s0[] = {1, 3, 10, 10}, s1[] = {1, 3, 9, 9};
+cv::Mat a(4, s0, CV_32F), b(4, s1, CV_32F); cv::randu(a, -1, 1); cv::randu(b, -1, 1);
+cv::dnn::Net net;   net.addLayerToPrev(lp.name, lp.type, lp);
+net.setInput(a);    net.forward();
+net.setInput(b);    cv::Mat out = net.forward();
+cv::dnn::Net fresh; fresh.addLayerToPrev(lp.name, lp.type, lp);
+fresh.setInput(b);  cv::Mat ref = fresh.forward();
+std::cout &lt;&lt; cv::norm(out, ref, cv::NORM_INF) &lt;&lt; "\n";  // 4.x: about 4.6, expected 0</code></pre>
+    </details>
+  </article>
+
+  <article class="card" id="dis-stale">
+    <div class="where"><span class="tag">wrong output</span><span>video · <code>DISOpticalFlow::calc()</code></span></div>
+    <h3>DIS optical flow reuses the initial flow of an earlier call</h3>
+    <p>When <code>calc()</code> gets an initial flow, the object stores it per pyramid level. A later <code>calc()</code> without one still uses the stored flow, because nothing clears it.</p>
+    <div class="outwrap"><span class="outlabel">Output on 4.x</span>
+<pre class="out"><code>calc() without an initial flow, after a call with one,
+compared with a fresh object:  max |difference| = 0.210853 px   (expected 0)</code></pre></div>
+    <dl class="kv">
+      <dt>Who hits it</dt><dd>Video code that sometimes passes a predicted flow and sometimes does not, on one object.</dd>
+      <dt>Source</dt><dd><a href="https://github.com/opencv/opencv/blob/2853bdce0d2cbad3d1009b3c88758cbd93d29300/modules/video/src/dis_flow.cpp#L318-L327">dis_flow.cpp:318-327</a> fills <code>initial_Ux</code> and <code>initial_Uy</code>, and only when a flow is passed.</dd>
+    </dl>
+  </article>
+
+  <article class="card" id="edgedrawing">
+    <div class="where"><span class="tag">wrong output</span><span>ximgproc · <code>EdgeDrawing::detectLines()</code>, <code>detectEllipses()</code></span></div>
+    <h3>EdgeDrawing validates later images against the first image's size</h3>
+    <p>The table that validates line segments (NFA) depends on the image size, but each detector builds it only once, so every later image is validated with the first image's thresholds.</p>
+    <div class="outwrap"><span class="outlabel">Output on 4.x</span>
+<pre class="out"><code>one detector: 64x48 image, then a 1280x960 image  -&gt; 2885 lines
+fresh detector on the same 1280x960 image          -&gt; 2731 lines
+same code with the table rebuilt for each image    -&gt; 2731 and 2731</code></pre></div>
+    <dl class="kv">
+      <dt>Who hits it</dt><dd>Anyone who keeps one detector for images of different sizes.</dd>
+      <dt>Source</dt><dd><a href="https://github.com/opencv/opencv_contrib/blob/2f5266f0489c8d32f23ce6d564a67ea7b2278a35/modules/ximgproc/src/edge_drawing.cpp#L1612-L1618">edge_drawing.cpp:1612-1618</a>, and the same pattern at <a href="https://github.com/opencv/opencv_contrib/blob/2f5266f0489c8d32f23ce6d564a67ea7b2278a35/modules/ximgproc/src/edge_drawing.cpp#L3217-L3223">:3217-3223</a> for ellipses.</dd>
+    </dl>
+  </article>
+
+  <article class="card" id="cuda-ghough">
+    <div class="where"><span class="tag">wrong output</span><span>cudaimgproc · <code>GeneralizedHoughBallard</code> / <code>Guil::detect(..., votes)</code></span></div>
+    <h3>CUDA Generalized Hough returns garbage votes</h3>
+    <p>The vote counts are <code>int3</code> on the device, but they are copied out through a <code>float4</code> view: the type is wrong, and the 16-byte stride walks over 12-byte data.</p>
+    <div class="outwrap"><span class="outlabel">Output on 4.x, same image and template</span>
+<pre class="out"><code>GPU votes  type CV_32FC4:  [3.6714e-43, 0, 0, 5.54914e-43]  [0, 0, 3.78351e-43, 0]  [0, 0, 0, 0]
+CPU votes  type CV_32SC3:  [260, 0, 0]  [268, 0, 0]  [393, 0, 0]</code></pre></div>
+    <dl class="kv">
+      <dt>Source</dt><dd><a href="https://github.com/opencv/opencv_contrib/blob/2f5266f0489c8d32f23ce6d564a67ea7b2278a35/modules/cudaimgproc/src/generalized_hough.cpp#L429-L433">generalized_hough.cpp:429-433</a></dd>
+    </dl>
+  </article>
+
+  </div>
+</section>
+
+<section id="crash">
+  <h2>Crashes, memory errors and a failing default</h2>
+  <div class="cards">
+
+  <article class="card" id="dis-gc">
+    <div class="where"><span class="tag">crash</span><span>video · <code>DISOpticalFlow::collectGarbage()</code></span></div>
+    <h3>DIS optical flow crashes on the first <code>calc()</code> after <code>collectGarbage()</code></h3>
+    <p><code>collectGarbage()</code> clears the variational refinement processors, which only the constructor creates. The next <code>calc()</code> indexes the empty vector at every pyramid level.</p>
+    <div class="outwrap"><span class="outlabel">Output on 4.x: calc, collectGarbage, calc on the RubberWhale frames</span>
+<pre class="out"><code>[ RUN      ] DenseOpticalFlow_DIS.calc_after_collectGarbage
+Segmentation fault (exit code 139)</code></pre></div>
+    <dl class="kv">
+      <dt>Source</dt><dd><a href="https://github.com/opencv/opencv/blob/2853bdce0d2cbad3d1009b3c88758cbd93d29300/modules/video/src/dis_flow.cpp#L1569-L1572">dis_flow.cpp:1569-1572</a> clears the vector; <a href="https://github.com/opencv/opencv/blob/2853bdce0d2cbad3d1009b3c88758cbd93d29300/modules/video/src/dis_flow.cpp#L1516">:1516</a> indexes it.</dd>
+    </dl>
+  </article>
+
+  <article class="card" id="lsh">
+    <div class="where"><span class="tag">crash</span><span class="tag">leak</span><span>flann · <code>Index::load()</code> with <code>LshIndexParams</code></span></div>
+    <h3>LSH: searching a loaded index crashes when <code>key_size</code> &lt; 20, and every load leaks the dataset</h3>
+    <p><code>load()</code> builds the index with the default key size of 20 and its probe masks. <code>loadIndex()</code> then reads the saved key size but never rebuilds the masks, so with smaller keys the probes fall outside the bucket table. The feature-matching tutorial uses 12. <code>loadIndex()</code> also reads the saved dataset into memory that nothing frees, and indexes that copy instead of the features passed to <code>load()</code>.</p>
+    <div class="outwrap"><span class="outlabel">Output on 4.x: build, save, load, knnSearch with LshIndexParams(6, key_size, 1)</span>
+<pre class="out"><code>key_size 10, 12, 16, 18:  Segmentation fault (exit code 139)
+key_size 20, 22, 24:      ok
+saved from one feature set, loaded with another, each row of the second searched:
+  nearest index -1 (expected i), distance 2147483647 (expected 0)</code></pre></div>
+    <figure>
+      <div class="bars" role="img" aria-label="Memory held after each load and destroy cycle grows by 3.2 MB every time, from 3.2 MB after one load to 32.0 MB after ten.">
+        <span class="lab">1 load</span><span class="track"><span class="fill" style="display:block;width:10%"></span></span><span class="v">3.2 MB</span>
+        <span class="lab">2</span><span class="track"><span class="fill" style="display:block;width:20%"></span></span><span class="v">6.4 MB</span>
+        <span class="lab">3</span><span class="track"><span class="fill" style="display:block;width:30%"></span></span><span class="v">9.6 MB</span>
+        <span class="lab">4</span><span class="track"><span class="fill" style="display:block;width:40%"></span></span><span class="v">12.8 MB</span>
+        <span class="lab">5</span><span class="track"><span class="fill" style="display:block;width:50%"></span></span><span class="v">16.0 MB</span>
+        <span class="lab">6</span><span class="track"><span class="fill" style="display:block;width:60%"></span></span><span class="v">19.2 MB</span>
+        <span class="lab">7</span><span class="track"><span class="fill" style="display:block;width:70%"></span></span><span class="v">22.4 MB</span>
+        <span class="lab">8</span><span class="track"><span class="fill" style="display:block;width:80%"></span></span><span class="v">25.6 MB</span>
+        <span class="lab">9</span><span class="track"><span class="fill" style="display:block;width:90%"></span></span><span class="v">28.8 MB</span>
+        <span class="lab">10 loads</span><span class="track"><span class="fill" style="display:block;width:100%"></span></span><span class="v">32.0 MB</span>
+      </div>
+      <figcaption>Memory still held after each load and destroy of an index over 100,000 descriptors of 32 bytes: 3.2 MB more every time.</figcaption>
+    </figure>
+    <dl class="kv">
+      <dt>Source</dt><dd><a href="https://github.com/opencv/opencv/blob/2853bdce0d2cbad3d1009b3c88758cbd93d29300/modules/flann/include/opencv2/flann/lsh_index.h#L141-L155">lsh_index.h:141-155</a></dd>
+    </dl>
+  </article>
+
+  <article class="card" id="linedesc">
+    <div class="where"><span class="tag">memory error</span><span>line_descriptor · <code>BinaryDescriptorMatcher</code></span></div>
+    <h3>Line descriptor matching writes past a buffer after <code>train()</code>, and reads past a short mask</h3>
+    <p><code>train()</code> resets the count of stored descriptors to 0 when nothing new was added. <code>radiusMatch()</code> calls <code>train()</code>, sizes its result buffer from that count, and then writes every result into it. Separately, the overloads that take a query and a train set check the mask size with <code>&amp;&amp;</code> where <code>||</code> was meant, so a mask with too few rows passes the check and is read past its end.</p>
+    <div class="outwrap"><span class="outlabel">AddressSanitizer on the 4.x source: add(), train(), radiusMatch()</span>
+<pre class="out"><code>ERROR: AddressSanitizer: heap-buffer-overflow
+WRITE of size 4
+    #0 BinaryDescriptorMatcher::Mihasher::query      binary_descriptor_matcher.cpp:708
+    #1 BinaryDescriptorMatcher::Mihasher::batchquery binary_descriptor_matcher.cpp:617
+    #2 BinaryDescriptorMatcher::radiusMatch          binary_descriptor_matcher.cpp:538
+allocated by: Mihasher::batchquery                   binary_descriptor_matcher.cpp:602</code></pre></div>
+    <div class="outwrap"><span class="outlabel">AddressSanitizer on the 4.x source, release flags: match() with a 5-row mask for 400 queries</span>
+<pre class="out"><code>ERROR: AddressSanitizer: heap-buffer-overflow
+READ of size 1
+    #0 BinaryDescriptorMatcher::match                binary_descriptor_matcher.cpp:234
+is located 0 bytes after 77-byte region (the mask)</code></pre></div>
+    <p class="note">In a normal build, the first case returns no matches where 11 are expected for the first query, and the heap is corrupted afterwards.</p>
+    <dl class="kv">
+      <dt>Source</dt><dd><a href="https://github.com/opencv/opencv_contrib/blob/2f5266f0489c8d32f23ce6d564a67ea7b2278a35/modules/line_descriptor/src/binary_descriptor_matcher.cpp#L83-L93">binary_descriptor_matcher.cpp:83-93</a> (<code>train()</code>); mask checks at <a href="https://github.com/opencv/opencv_contrib/blob/2f5266f0489c8d32f23ce6d564a67ea7b2278a35/modules/line_descriptor/src/binary_descriptor_matcher.cpp#L207">:207</a> and <a href="https://github.com/opencv/opencv_contrib/blob/2f5266f0489c8d32f23ce6d564a67ea7b2278a35/modules/line_descriptor/src/binary_descriptor_matcher.cpp#L440">:440</a>.</dd>
+    </dl>
+  </article>
+
+  <article class="card" id="rgbd-normals">
+    <div class="where"><span class="tag">memory error</span><span>rgbd · <code>RgbdNormals</code></span></div>
+    <h3><code>RgbdNormals</code> frees its implementation twice after a rejected window size</h3>
+    <p>When a parameter changes, <code>initialize()</code> deletes the old implementation and builds a new one. If the new window size is rejected, the build throws, the deleted pointer stays in the object, and the destructor deletes it again.</p>
+    <div class="outwrap"><span class="outlabel">AddressSanitizer on the 4.x source: compute normals, setWindowSize(4), compute again, destroy</span>
+<pre class="out"><code>ERROR: AddressSanitizer: heap-use-after-free
+    #0 delete_normals_impl          normal.cpp:690
+    #1 RgbdNormals::~RgbdNormals()  normal.cpp:702
+freed by:   RgbdNormals::initialize()  normal.cpp:756
+allocated:  RgbdNormals::initialize()  normal.cpp:753
+In a normal build: Segmentation fault (exit code 139)</code></pre></div>
+    <dl class="kv">
+      <dt>Source</dt><dd><a href="https://github.com/opencv/opencv_contrib/blob/2f5266f0489c8d32f23ce6d564a67ea7b2278a35/modules/rgbd/src/normal.cpp#L750-L759">normal.cpp:750-759</a></dd>
+    </dl>
+  </article>
+
+  <article class="card" id="rlof-default">
+    <div class="where"><span class="tag">fails by default</span><span>optflow · <code>calcOpticalFlowDenseRLOF()</code></span></div>
+    <h3>Dense RLOF fails with its default parameters at 1080p</h3>
+    <p>The default 6 × 6 grid gives 320 × 180 = 57,600 points at 1920 × 1080. The default interpolation, <code>INTERP_EPIC</code>, requires fewer than 32,767 matches.</p>
+    <div class="outwrap"><span class="outlabel">Output on 4.x, default parameters</span>
+<pre class="out"><code>1280 x 720:   ok
+1920 x 1080:  error: (-215:Assertion failed) match_num&lt;SHRT_MAX in function 'interpolate'
+3840 x 2160:  error: (-215:Assertion failed) match_num&lt;SHRT_MAX in function 'interpolate'</code></pre></div>
+    <dl class="kv">
+      <dt>Source</dt><dd><a href="https://github.com/opencv/opencv_contrib/blob/2f5266f0489c8d32f23ce6d564a67ea7b2278a35/modules/ximgproc/src/sparse_match_interpolators.cpp#L204">sparse_match_interpolators.cpp:204</a>. Each possible fix changes behaviour: widen the grid above the limit, switch to <code>INTERP_GEO</code>, or lift the 16-bit limit.</dd>
+    </dl>
+  </article>
+
+  </div>
+</section>
+
+<section id="leaks">
+  <h2>Memory that is never released</h2>
+  <p class="sub">Measured as memory still allocated after the call returns, in a fresh process.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Where</th><th>What grows</th><th>Measured on 4.x</th></tr></thead>
+      <tbody>
+        <tr><td><code>Index::load()</code> with LSH<span class="mod">flann · <a href="#lsh">above</a></span></td><td>a copy of the dataset, per load</td><td class="num">3.2 MB per load (100,000 × 32 B)</td></tr>
+        <tr><td><code>EdgeBoxes::getBoundingBoxes()</code><span class="mod">ximgproc</span></td><td>index lists that are never cleared</td><td class="num">41.6 → 43.1 MB over 40 calls at 1080p</td></tr>
+        <tr><td>OCR beam-search CNN classifier <code>eval()</code><span class="mod">text</span></td><td>a probability array per window</td><td class="num">12,600 B per call (200 × 50); 117,421 B (1920 × 64)</td></tr>
+        <tr><td><code>knnMatch()</code> with a mask of the wrong size<span class="mod">line_descriptor</span></td><td>buffers on the early return</td><td class="num">310,816 B per call</td></tr>
+        <tr><td><code>DepthCleaner</code> after a parameter change<span class="mod">rgbd</span></td><td>the old implementation</td><td class="num">24 B per change</td></tr>
+        <tr><td><code>DualTVL1OpticalFlow::collectGarbage()</code><span class="mod">optflow</span></td><td>the gamma buffers stay allocated</td><td class="num">keeps 66.4 MB (gamma 0), 86.9 MB (gamma 0.1) at 1080p</td></tr>
+        <tr><td>BatchNorm-fused convolution after an input-size change<span class="mod">dnn</span></td><td>a second copy of the fused weights</td><td class="num">+18.9 MB: 137.5 MB at 32 × 32, 156.3 MB after 48 × 48 and back (8 convolutions, 3 × 3, 256 channels)</td></tr>
+        <tr><td><code>cuda::CLAHE::collectGarbage()</code>, 16-bit input<span class="mod">cudaimgproc</span></td><td>the histogram buffer</td><td class="num">keeps 16.0 MiB</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="memory">
+  <h2>Calls that use far more memory or time than they need</h2>
+  <p class="sub">Largest first. "Peak" is the heap high-water mark during one call above the level before it; "allocated" is the total of all allocations in the call.</p>
+  <figure>
+    <div class="bars" role="img" aria-label="Peak memory per CSRT update rises with the frame size, from 6.2 MiB at 480 by 360 to 110.8 MiB at 3840 by 2160.">
+      <span class="lab">480 × 360</span><span class="track"><span class="fill" style="display:block;width:5.6%"></span></span><span class="v">6.2 MiB</span>
+      <span class="lab">640 × 480</span><span class="track"><span class="fill" style="display:block;width:5.9%"></span></span><span class="v">6.5 MiB</span>
+      <span class="lab">1280 × 720</span><span class="track"><span class="fill" style="display:block;width:11.2%"></span></span><span class="v">12.4 MiB</span>
+      <span class="lab">1920 × 1080</span><span class="track"><span class="fill" style="display:block;width:25%"></span></span><span class="v">27.7 MiB</span>
+      <span class="lab">3840 × 2160</span><span class="track"><span class="fill" style="display:block;width:100%"></span></span><span class="v">110.8 MiB</span>
+    </div>
+    <figcaption>Example: peak memory per <code>TrackerCSRT::update()</code> grows with the frame, although the tracker only uses a region around a 100 × 100 target. Each update also makes 25,818 to 25,824 heap allocations, at every frame size.</figcaption>
+  </figure>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Where</th><th>Input</th><th>Measured on 4.x</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td><code>KAZE::detectAndCompute()</code><span class="mod">features2d</span></td><td>3840 × 2160<br>1920 × 1080 photo</td><td class="num">peak 4,180 MiB, 1,820 ms<br>peak 1,047 MiB, 428 ms</td><td class="why">keeps 8 or more full-size planes per pyramid level</td></tr>
+        <tr><td><code>stylization()</code><span class="mod">photo</span></td><td>1080p<br>4K</td><td class="num">peak 259 MiB, 641 ms, 72,756 allocations<br>peak 1,036 MiB</td><td class="why">full-frame transposes, index maps and copies; one thread only</td></tr>
+        <tr><td><code>edgePreservingFilter()</code> NC / RF<span class="mod">photo</span></td><td>1080p</td><td class="num">peak 245 / 190 MiB, 633 / 197 ms</td><td class="why">same; one thread only</td></tr>
+        <tr><td><code>pencilSketch()</code> / <code>detailEnhance()</code><span class="mod">photo</span></td><td>1080p</td><td class="num">peak 261 / 234 MiB, 293 / 168 ms</td><td class="why">same; one thread only</td></tr>
+        <tr><td><code>TrackerCSRT::update()</code><span class="mod">tracking</span></td><td>3840 × 2160</td><td class="num">peak 110.8 MiB, 26.3 ms, 25,820 allocations</td><td class="why">converts and segments the whole frame; scratch matrices rebuilt per update</td></tr>
+        <tr><td><code>PCA</code>, 16 components<span class="mod">core</span></td><td>500 × 100,000</td><td class="num">peak 384 MiB, 3,280 ms</td><td class="why">back-projects every component, not only the kept ones</td></tr>
+        <tr><td><code>TrackerNano</code><span class="mod">video</span></td><td>3840 × 2160</td><td class="num">holds 27.1 MB after init; 32.8 MB allocated per update, 60.7 MB near a border</td><td class="why">clones each frame into a member; pads the whole frame</td></tr>
+        <tr><td><code>TrackerDaSiamRPN</code><span class="mod">video</span></td><td>3840 × 2160</td><td class="num">69.1 MB allocated per update, 96.9 MB near a border</td><td class="why">same</td></tr>
+        <tr><td><code>calcOpticalFlowDenseRLOF()</code><span class="mod">optflow</span></td><td>1080p</td><td class="num">2,326,989 allocations, 822 ms (robust norm); 904,181 (standard)</td><td class="why">per-range buffers rebuilt for every range</td></tr>
+        <tr><td><code>VariationalRefinement::calc()</code><span class="mod">video</span></td><td>1080p<br>4K</td><td class="num">45 MB allocated per call<br>179 MB</td><td class="why">five temporary full-size planes per call</td></tr>
+        <tr><td>MSLIC superpixels<span class="mod">ximgproc</span></td><td>720p<br>1080p</td><td class="num">12,360,121 allocations, 705 ms<br>28,269,979, 1,518 ms</td><td class="why">two vectors allocated per pixel per iteration</td></tr>
+        <tr><td><code>BinaryDescriptorMatcher::radiusMatch()</code><span class="mod">line_descriptor</span></td><td>600 × 600 descriptors</td><td class="num">3,961,788 allocations, 229 ms</td><td class="why">distances recomputed for each match</td></tr>
+        <tr><td><code>WeChatQRCode::detectAndDecode()</code><span class="mod">wechat_qrcode</span></td><td>1080p, nothing decodes</td><td class="num">244 to 270 MB allocated, peak 100 MB per call</td><td class="why">11 MB of it: binarizer arrays that are never written</td></tr>
+        <tr><td><code>GeneralizedHoughGuil::detect()</code><span class="mod">imgproc</span></td><td>1080p</td><td class="num">peak 103.1 MB, 140 ms</td><td class="why">point list grows without a reserve</td></tr>
+        <tr><td><code>QRCodeDetector::detectAndDecode()</code><span class="mod">objdetect</span></td><td>3840 × 2160</td><td class="num">peak 97.9 MB</td><td class="why">extra full copies of the image</td></tr>
+        <tr><td><code>DualTVL1OpticalFlow</code>, gamma = 0<span class="mod">optflow</span></td><td>1080p</td><td class="num">49.8 MB of the 322.8 MB peak</td><td class="why">gamma buffers allocated even when gamma is 0</td></tr>
+        <tr><td><code>MatMul</code> with a constant bias<span class="mod">dnn</span></td><td>2048 × 768 by 768 × 3072</td><td class="num">holds a 25.2 MB output-sized copy of the bias</td><td class="why">bias broadcast to the output shape (M · N · 4 bytes per layer)</td></tr>
+        <tr><td>KD-tree / hierarchical <code>knnSearch()</code><span class="mod">flann</span></td><td>100,000 points</td><td class="num">12,812 / 13,621 B allocated per query</td><td class="why">visited set allocated per query</td></tr>
+        <tr><td><code>SIFT::detectAndCompute()</code><span class="mod">features2d</span></td><td>boat1.jpg, 4,452 keypoints</td><td class="num">47,002 allocations</td><td class="why">a buffer list that grows one block at a time, per keypoint</td></tr>
+        <tr><td><code>warpPolar()</code>, inverse<span class="mod">imgproc</span></td><td>1080p</td><td class="num">8,791 allocations, 5.06 ms</td><td class="why">row buffers allocated per row</td></tr>
+        <tr><td><code>setTo()</code> and arithmetic with a scalar or mask<span class="mod">core</span></td><td>any size</td><td class="num">one heap allocation per call</td><td class="why">scratch buffer on the heap</td></tr>
+        <tr><td><code>cuda::HoughCirclesDetector</code><span class="mod">cudaimgproc</span></td><td>1080p<br>4K</td><td class="num">downloads 7.9 MiB per call, 0.625 ms<br>31.7 MiB, 2.00 ms</td><td class="why">copies the whole accumulator to the host each call</td></tr>
+        <tr><td><code>cuda::FarnebackOpticalFlow</code><span class="mod">cudaoptflow</span></td><td>1080p</td><td class="num">12 allocations per call, 3.77 ms</td><td class="why">buffers and streams created per call</td></tr>
+        <tr><td><code>cuda::DensePyrLKOpticalFlow</code><span class="mod">cudaoptflow</span></td><td>4K</td><td class="num">peak 274.2 MiB</td><td class="why">finest level computed into scratch, then copied</td></tr>
+        <tr><td><code>cuda::sqrIntegral()</code><span class="mod">cudaarithm</span></td><td>4K</td><td class="num">peak 127.6 MiB</td><td class="why">result built in a buffer, then copied</td></tr>
+        <tr><td><code>cuda::CannyEdgeDetector</code><span class="mod">cudaimgproc</span></td><td>any size</td><td class="num">a cudaMalloc and cudaFree per call</td><td class="why">counter allocated per call</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="method">
+  <h2>How this was measured</h2>
+  <ul>
+    <li>Code: opencv 4.x at <a href="https://github.com/opencv/opencv/tree/2853bdce0d2cbad3d1009b3c88758cbd93d29300">2853bdc</a> and opencv_contrib 4.x at <a href="https://github.com/opencv/opencv_contrib/tree/2f5266f0489c8d32f23ce6d564a67ea7b2278a35">2f5266f</a>, Release builds with GCC 15.2 and glibc 2.43 on Linux x86-64; Ryzen 9 9950X3D with 24 threads; RTX PRO 6000 Blackwell with CUDA 13.2 for the CUDA rows.</li>
+    <li>Memory: every run is a fresh process with a malloc interposer that counts allocations and bytes, and records the peak above the level before the call and what the call leaves allocated. Blocks of 1 MiB or more are mapped directly, so their sizes are exact. CUDA rows count <code>GpuMat</code> allocations through a counting allocator, per call after a warm-up call.</li>
+    <li>Time: wall clock on an otherwise idle machine. Photo filter times are OpenCV's perf tests (medians, one thread).</li>
+    <li>Wrong results and crashes: each has a test or a short program, and the output shown is from the unmodified libraries. Memory errors come from AddressSanitizer builds of the affected source files.</li>
+  </ul>
+</section>
+
+<section id="fixes">
+  <h2>Fixes</h2>
+  <p>Fixes are ready for everything above except three items: the dense RLOF default, which needs a maintainer's choice between the three behaviours; CSRT's allocation count; and two of the five planes that <code>VariationalRefinement::calc()</code> allocates per call. Each bug fix comes with a test that fails on 4.x, and each memory fix keeps the output bit-identical. They are in two draft pull requests, one in opencv and one in opencv_contrib, linked from the issue; their descriptions give before and after numbers.</p>
+</section>
+
+</div>
+
+</body>
+</html>
