@@ -1,125 +1,265 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="860" height="572" viewBox="0 0 860 572" role="img">
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="1212" viewBox="0 0 860 1212" role="img">
 <title>Peak memory during one call: now and needed, log scale</title><style>.bg{fill:#fcfcfb;stroke:#e1e0d9}.ink{fill:#1f2328}.ink2{fill:#59636e}.muted{fill:#8c959f}.grid{stroke:#eaeef2}.axis{stroke:#d1d9e0}.need{fill:#2a78d6;stroke:#fcfcfb}.now{fill:#cf3a3a;stroke:#fcfcfb}.gap{stroke:#f4c0bd}.gapt{fill:#b42318}.sw-need{fill:#2a78d6}.sw-now{fill:#cf3a3a}.sw-gap{fill:#f4c0bd}@media (prefers-color-scheme: dark){.bg{fill:#151b23;stroke:#30363d}.ink{fill:#e6edf3}.ink2{fill:#9198a1}.muted{fill:#7d8590}.grid{stroke:#262c36}.axis{stroke:#3d444d}.need{fill:#4493f8;stroke:#151b23}.now{fill:#f05d5d;stroke:#151b23}.gap{stroke:#5c2a2a}.gapt{fill:#ff8a80}.sw-need{fill:#4493f8}.sw-now{fill:#f05d5d}.sw-gap{fill:#5c2a2a}}text{font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;font-size:13px}.mono{font-family:ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;font-size:12.5px}.small{font-size:11.5px}.b{font-weight:600}.title{font-size:14px;font-weight:600}</style>
-<rect class="bg" x="0.5" y="0.5" width="859" height="571" rx="8"/>
+<rect class="bg" x="0.5" y="0.5" width="859" height="1211" rx="8"/>
 <circle class="sw-now" cx="25" cy="24" r="5"/>
 <text class="ink2 small" x="35.0" y="28.0" text-anchor="start">now: stock 4.x</text>
 <circle class="sw-need" cx="150.39999999999998" cy="24" r="5"/>
 <text class="ink2 small" x="160.4" y="28.0" text-anchor="start">needed: same output, measured</text>
 <rect class="sw-gap" x="369.79999999999995" y="21" width="18" height="6" rx="3"/>
 <text class="ink2 small" x="393.8" y="28.0" text-anchor="start">avoidable</text>
-<line class="grid" x1="300.0" y1="46" x2="300.0" y2="534" stroke-width="1"/>
-<text class="muted small" x="300.0" y="550.0" text-anchor="middle">1 MiB</text>
-<line class="grid" x1="375.0" y1="46" x2="375.0" y2="534" stroke-width="1"/>
-<text class="muted small" x="375.0" y="550.0" text-anchor="middle">10 MiB</text>
-<line class="grid" x1="450.0" y1="46" x2="450.0" y2="534" stroke-width="1"/>
-<text class="muted small" x="450.0" y="550.0" text-anchor="middle">100 MiB</text>
-<line class="grid" x1="525.0" y1="46" x2="525.0" y2="534" stroke-width="1"/>
-<text class="muted small" x="525.0" y="550.0" text-anchor="middle">1 GiB</text>
-<line class="grid" x1="600.0" y1="46" x2="600.0" y2="534" stroke-width="1"/>
-<text class="muted small" x="600.0" y="550.0" text-anchor="middle">10 GiB</text>
-<text class="mono ink" x="286.0" y="66.0" text-anchor="end">KAZE::detectAndCompute()</text>
-<text class="muted small" x="286.0" y="80.0" text-anchor="end">3840 × 2160</text>
-<line class="gap" x1="543.9" y1="68.0" x2="571.6" y2="68.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="543.9" cy="68.0" r="6" stroke-width="2"/>
-<circle class="now" cx="571.6" cy="68.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="72.0" text-anchor="start">4,179 → 1,788 MiB</text>
-<text class="gapt small b" x="840.0" y="72.0" text-anchor="end">−2,391 MiB (57%)</text>
+<line class="grid" x1="300.0" y1="46" x2="300.0" y2="1174" stroke-width="1"/>
+<text class="muted small" x="300.0" y="1190.0" text-anchor="middle">1 MiB</text>
+<line class="grid" x1="375.0" y1="46" x2="375.0" y2="1174" stroke-width="1"/>
+<text class="muted small" x="375.0" y="1190.0" text-anchor="middle">10 MiB</text>
+<line class="grid" x1="450.0" y1="46" x2="450.0" y2="1174" stroke-width="1"/>
+<text class="muted small" x="450.0" y="1190.0" text-anchor="middle">100 MiB</text>
+<line class="grid" x1="525.0" y1="46" x2="525.0" y2="1174" stroke-width="1"/>
+<text class="muted small" x="525.0" y="1190.0" text-anchor="middle">1 GiB</text>
+<line class="grid" x1="600.0" y1="46" x2="600.0" y2="1174" stroke-width="1"/>
+<text class="muted small" x="600.0" y="1190.0" text-anchor="middle">10 GiB</text>
+<text class="mono ink" x="286.0" y="66.0" text-anchor="end">HfsSegment::performSegmentCpu()</text>
+<text class="muted small" x="286.0" y="80.0" text-anchor="end">1920 × 1080</text>
+<line class="gap" x1="423.6" y1="68.0" x2="576.1" y2="68.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="423.6" cy="68.0" r="6" stroke-width="2"/>
+<circle class="now" cx="576.1" cy="68.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="72.0" text-anchor="start">4,807 → 44.5 MiB</text>
+<text class="gapt small b" x="840.0" y="72.0" text-anchor="end">−4,762 MiB (99%)</text>
 <text class="mono ink" x="286.0" y="98.0" text-anchor="end">KAZE::detectAndCompute()</text>
-<text class="muted small" x="286.0" y="112.0" text-anchor="end">1920 × 1080 photo</text>
-<line class="gap" x1="499.1" y1="100.0" x2="526.5" y2="100.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="499.1" cy="100.0" r="6" stroke-width="2"/>
-<circle class="now" cx="526.5" cy="100.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="104.0" text-anchor="start">1,046 → 452 MiB</text>
-<text class="gapt small b" x="840.0" y="104.0" text-anchor="end">−594 MiB (57%)</text>
-<text class="mono ink" x="286.0" y="130.0" text-anchor="end">edgePreservingFilter() NC</text>
-<text class="muted small" x="286.0" y="144.0" text-anchor="end">1080p</text>
-<line class="gap" x1="424.4" y1="132.0" x2="479.2" y2="132.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="424.4" cy="132.0" r="6" stroke-width="2"/>
-<circle class="now" cx="479.2" cy="132.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="136.0" text-anchor="start">245 → 45.5 MiB</text>
-<text class="gapt small b" x="840.0" y="136.0" text-anchor="end">−200 MiB (81%)</text>
-<text class="mono ink" x="286.0" y="162.0" text-anchor="end">pencilSketch()</text>
-<text class="muted small" x="286.0" y="176.0" text-anchor="end">1080p</text>
-<line class="gap" x1="435.1" y1="164.0" x2="481.3" y2="164.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="435.1" cy="164.0" r="6" stroke-width="2"/>
-<circle class="now" cx="481.3" cy="164.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="168.0" text-anchor="start">261 → 63.3 MiB</text>
-<text class="gapt small b" x="840.0" y="168.0" text-anchor="end">−198 MiB (76%)</text>
-<text class="mono ink" x="286.0" y="194.0" text-anchor="end">stylization()</text>
-<text class="muted small" x="286.0" y="208.0" text-anchor="end">1080p</text>
-<line class="gap" x1="438.0" y1="196.0" x2="481.0" y2="196.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="438.0" cy="196.0" r="6" stroke-width="2"/>
-<circle class="now" cx="481.0" cy="196.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="200.0" text-anchor="start">259 → 69.2 MiB</text>
-<text class="gapt small b" x="840.0" y="200.0" text-anchor="end">−190 MiB (73%)</text>
-<text class="mono ink" x="286.0" y="226.0" text-anchor="end">PCA, 16 components</text>
-<text class="muted small" x="286.0" y="240.0" text-anchor="end">500 × 100,000</text>
-<line class="gap" x1="472.6" y1="228.0" x2="493.8" y2="228.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="472.6" cy="228.0" r="6" stroke-width="2"/>
-<circle class="now" cx="493.8" cy="228.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="232.0" text-anchor="start">384 → 200 MiB</text>
-<text class="gapt small b" x="840.0" y="232.0" text-anchor="end">−184 MiB (48%)</text>
-<text class="mono ink" x="286.0" y="258.0" text-anchor="end">detailEnhance()</text>
-<text class="muted small" x="286.0" y="272.0" text-anchor="end">1080p</text>
-<line class="gap" x1="436.2" y1="260.0" x2="477.7" y2="260.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="436.2" cy="260.0" r="6" stroke-width="2"/>
-<circle class="now" cx="477.7" cy="260.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="264.0" text-anchor="start">234 → 65.4 MiB</text>
-<text class="gapt small b" x="840.0" y="264.0" text-anchor="end">−168 MiB (72%)</text>
-<text class="mono ink" x="286.0" y="290.0" text-anchor="end">VariationalRefinement::calc()</text>
-<text class="muted small" x="286.0" y="304.0" text-anchor="end">4K, each call after the first</text>
-<line class="gap" x1="324.2" y1="292.0" x2="465.0" y2="292.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="324.2" cy="292.0" r="6" stroke-width="2"/>
-<circle class="now" cx="465.0" cy="292.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="296.0" text-anchor="start">159 → 2.1 MiB</text>
-<text class="gapt small b" x="840.0" y="296.0" text-anchor="end">−157 MiB (99%)</text>
-<text class="mono ink" x="286.0" y="322.0" text-anchor="end">edgePreservingFilter() RF</text>
-<text class="muted small" x="286.0" y="336.0" text-anchor="end">1080p</text>
-<line class="gap" x1="424.1" y1="324.0" x2="470.9" y2="324.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="424.1" cy="324.0" r="6" stroke-width="2"/>
-<circle class="now" cx="470.9" cy="324.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="328.0" text-anchor="start">190 → 45.1 MiB</text>
-<text class="gapt small b" x="840.0" y="328.0" text-anchor="end">−145 MiB (76%)</text>
-<text class="mono ink" x="286.0" y="354.0" text-anchor="end">TrackerCSRT::update()</text>
-<text class="muted small" x="286.0" y="368.0" text-anchor="end">3840 × 2160</text>
-<line class="gap" x1="360.0" y1="356.0" x2="453.3" y2="356.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="360.0" cy="356.0" r="6" stroke-width="2"/>
-<circle class="now" cx="453.3" cy="356.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="360.0" text-anchor="start">111 → 6.3 MiB</text>
-<text class="gapt small b" x="840.0" y="360.0" text-anchor="end">−104 MiB (94%)</text>
-<text class="mono ink" x="286.0" y="386.0" text-anchor="end">DualTVL1OpticalFlow, gamma 0</text>
+<text class="muted small" x="286.0" y="112.0" text-anchor="end">3840 × 2160</text>
+<line class="gap" x1="516.1" y1="100.0" x2="571.6" y2="100.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="516.1" cy="100.0" r="6" stroke-width="2"/>
+<circle class="now" cx="571.6" cy="100.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="104.0" text-anchor="start">4,179 → 762 MiB</text>
+<text class="gapt small b" x="840.0" y="104.0" text-anchor="end">−3,418 MiB (82%)</text>
+<text class="mono ink" x="286.0" y="130.0" text-anchor="end">BackgroundSubtractorGSOC::apply()</text>
+<text class="muted small" x="286.0" y="144.0" text-anchor="end">1080p, first frame</text>
+<line class="gap" x1="519.6" y1="132.0" x2="556.1" y2="132.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="519.6" cy="132.0" r="6" stroke-width="2"/>
+<circle class="now" cx="556.1" cy="132.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="136.0" text-anchor="start">2,595 → 846 MiB</text>
+<text class="gapt small b" x="840.0" y="136.0" text-anchor="end">−1,748 MiB (67%)</text>
+<text class="mono ink" x="286.0" y="162.0" text-anchor="end">KAZE::detectAndCompute()</text>
+<text class="muted small" x="286.0" y="176.0" text-anchor="end">1920 × 1080 photo</text>
+<line class="gap" x1="471.3" y1="164.0" x2="526.5" y2="164.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="471.3" cy="164.0" r="6" stroke-width="2"/>
+<circle class="now" cx="526.5" cy="164.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="168.0" text-anchor="start">1,046 → 192 MiB</text>
+<text class="gapt small b" x="840.0" y="168.0" text-anchor="end">−854 MiB (82%)</text>
+<text class="mono ink" x="286.0" y="194.0" text-anchor="end">SIFT::detectAndCompute()</text>
+<text class="muted small" x="286.0" y="208.0" text-anchor="end">3840 × 2160</text>
+<line class="gap" x1="529.3" y1="196.0" x2="545.2" y2="196.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="529.3" cy="196.0" r="6" stroke-width="2"/>
+<circle class="now" cx="545.2" cy="196.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="200.0" text-anchor="start">1,857 → 1,142 MiB</text>
+<text class="gapt small b" x="840.0" y="200.0" text-anchor="end">−715 MiB (39%)</text>
+<text class="mono ink" x="286.0" y="226.0" text-anchor="end">AKAZE::detectAndCompute()</text>
+<text class="muted small" x="286.0" y="240.0" text-anchor="end">3840 × 2160</text>
+<line class="gap" x1="493.7" y1="228.0" x2="527.7" y2="228.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="493.7" cy="228.0" r="6" stroke-width="2"/>
+<circle class="now" cx="527.7" cy="228.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="232.0" text-anchor="start">1,086 → 383 MiB</text>
+<text class="gapt small b" x="840.0" y="232.0" text-anchor="end">−704 MiB (65%)</text>
+<text class="mono ink" x="286.0" y="258.0" text-anchor="end">GuidedFilter::filter()</text>
+<text class="muted small" x="286.0" y="272.0" text-anchor="end">3840 × 2160</text>
+<line class="gap" x1="466.5" y1="260.0" x2="511.7" y2="260.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="466.5" cy="260.0" r="6" stroke-width="2"/>
+<circle class="now" cx="511.7" cy="260.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="264.0" text-anchor="start">664 → 166 MiB</text>
+<text class="gapt small b" x="840.0" y="264.0" text-anchor="end">−498 MiB (75%)</text>
+<text class="mono ink" x="286.0" y="290.0" text-anchor="end">xphoto::dctDenoising()</text>
+<text class="muted small" x="286.0" y="304.0" text-anchor="end">1280 × 720</text>
+<line class="gap" x1="408.7" y1="292.0" x2="498.4" y2="292.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="408.7" cy="292.0" r="6" stroke-width="2"/>
+<circle class="now" cx="498.4" cy="292.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="296.0" text-anchor="start">442 → 28.1 MiB</text>
+<text class="gapt small b" x="840.0" y="296.0" text-anchor="end">−414 MiB (94%)</text>
+<text class="mono ink" x="286.0" y="322.0" text-anchor="end">RidgeDetectionFilter</text>
+<text class="muted small" x="286.0" y="336.0" text-anchor="end">3840 × 2160</text>
+<line class="gap" x1="458.2" y1="324.0" x2="503.3" y2="324.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="458.2" cy="324.0" r="6" stroke-width="2"/>
+<circle class="now" cx="503.3" cy="324.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="328.0" text-anchor="start">514 → 129 MiB</text>
+<text class="gapt small b" x="840.0" y="328.0" text-anchor="end">−385 MiB (75%)</text>
+<text class="mono ink" x="286.0" y="354.0" text-anchor="end">BackgroundSubtractorLSBP::apply()</text>
+<text class="muted small" x="286.0" y="368.0" text-anchor="end">720p, first frame</text>
+<line class="gap" x1="493.4" y1="356.0" x2="514.8" y2="356.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="493.4" cy="356.0" r="6" stroke-width="2"/>
+<circle class="now" cx="514.8" cy="356.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="360.0" text-anchor="start">730 → 379 MiB</text>
+<text class="gapt small b" x="840.0" y="360.0" text-anchor="end">−352 MiB (48%)</text>
+<text class="mono ink" x="286.0" y="386.0" text-anchor="end">l0Smooth()</text>
 <text class="muted small" x="286.0" y="400.0" text-anchor="end">1080p</text>
-<line class="gap" x1="473.4" y1="388.0" x2="486.6" y2="388.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="473.4" cy="388.0" r="6" stroke-width="2"/>
-<circle class="now" cx="486.6" cy="388.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="392.0" text-anchor="start">308 → 205 MiB</text>
-<text class="gapt small b" x="840.0" y="392.0" text-anchor="end">−103 MiB (33%)</text>
-<text class="mono ink" x="286.0" y="418.0" text-anchor="end">cuda::DensePyrLKOpticalFlow</text>
-<text class="muted small" x="286.0" y="432.0" text-anchor="end">4K</text>
-<line class="gap" x1="474.3" y1="420.0" x2="482.9" y2="420.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="474.3" cy="420.0" r="6" stroke-width="2"/>
-<circle class="now" cx="482.9" cy="420.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="424.0" text-anchor="start">274 → 211 MiB</text>
-<text class="gapt small b" x="840.0" y="424.0" text-anchor="end">−63.3 MiB (23%)</text>
-<text class="mono ink" x="286.0" y="450.0" text-anchor="end">cuda::sqrIntegral()</text>
-<text class="muted small" x="286.0" y="464.0" text-anchor="end">4K</text>
-<line class="gap" x1="435.7" y1="452.0" x2="457.9" y2="452.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="435.7" cy="452.0" r="6" stroke-width="2"/>
-<circle class="now" cx="457.9" cy="452.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="456.0" text-anchor="start">128 → 64.4 MiB</text>
-<text class="gapt small b" x="840.0" y="456.0" text-anchor="end">−63.2 MiB (50%)</text>
-<text class="mono ink" x="286.0" y="482.0" text-anchor="end">GeneralizedHoughGuil::detect()</text>
-<text class="muted small" x="286.0" y="496.0" text-anchor="end">1080p</text>
-<line class="gap" x1="423.8" y1="484.0" x2="449.4" y2="484.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="423.8" cy="484.0" r="6" stroke-width="2"/>
-<circle class="now" cx="449.4" cy="484.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="488.0" text-anchor="start">98.3 → 44.7 MiB</text>
-<text class="gapt small b" x="840.0" y="488.0" text-anchor="end">−53.6 MiB (55%)</text>
-<text class="mono ink" x="286.0" y="514.0" text-anchor="end">QRCodeDetector::detectAndDecode()</text>
-<text class="muted small" x="286.0" y="528.0" text-anchor="end">3840 × 2160</text>
-<line class="gap" x1="441.7" y1="516.0" x2="447.7" y2="516.0" stroke-width="8" stroke-linecap="round"/>
-<circle class="need" cx="441.7" cy="516.0" r="6" stroke-width="2"/>
-<circle class="now" cx="447.7" cy="516.0" r="6" stroke-width="2"/>
-<text class="ink small" x="620.0" y="520.0" text-anchor="start">93.1 → 77.5 MiB</text>
-<text class="gapt small b" x="840.0" y="520.0" text-anchor="end">−15.6 MiB (17%)</text>
+<line class="gap" x1="469.6" y1="388.0" x2="504.2" y2="388.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="469.6" cy="388.0" r="6" stroke-width="2"/>
+<circle class="now" cx="504.2" cy="388.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="392.0" text-anchor="start">528 → 183 MiB</text>
+<text class="gapt small b" x="840.0" y="392.0" text-anchor="end">−345 MiB (65%)</text>
+<text class="mono ink" x="286.0" y="418.0" text-anchor="end">SuperResolution BTV-L1</text>
+<text class="muted small" x="286.0" y="432.0" text-anchor="end">1080p</text>
+<line class="gap" x1="501.5" y1="420.0" x2="515.9" y2="420.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="501.5" cy="420.0" r="6" stroke-width="2"/>
+<circle class="now" cx="515.9" cy="420.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="424.0" text-anchor="start">756 → 486 MiB</text>
+<text class="gapt small b" x="840.0" y="424.0" text-anchor="end">−270 MiB (36%)</text>
+<text class="mono ink" x="286.0" y="450.0" text-anchor="end">grabCut()</text>
+<text class="muted small" x="286.0" y="464.0" text-anchor="end">3840 × 2160</text>
+<line class="gap" x1="535.3" y1="452.0" x2="540.7" y2="452.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="535.3" cy="452.0" r="6" stroke-width="2"/>
+<circle class="now" cx="540.7" cy="452.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="456.0" text-anchor="start">1,621 → 1,371 MiB</text>
+<text class="gapt small b" x="840.0" y="456.0" text-anchor="end">−250 MiB (15%)</text>
+<text class="mono ink" x="286.0" y="482.0" text-anchor="end">seamlessClone()</text>
+<text class="muted small" x="286.0" y="496.0" text-anchor="end">3840 × 2160</text>
+<line class="gap" x1="461.0" y1="484.0" x2="493.3" y2="484.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="461.0" cy="484.0" r="6" stroke-width="2"/>
+<circle class="now" cx="493.3" cy="484.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="488.0" text-anchor="start">378 → 140 MiB</text>
+<text class="gapt small b" x="840.0" y="488.0" text-anchor="end">−238 MiB (63%)</text>
+<text class="mono ink" x="286.0" y="514.0" text-anchor="end">edgePreservingFilter() NC</text>
+<text class="muted small" x="286.0" y="528.0" text-anchor="end">1080p</text>
+<line class="gap" x1="424.4" y1="516.0" x2="479.2" y2="516.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="424.4" cy="516.0" r="6" stroke-width="2"/>
+<circle class="now" cx="479.2" cy="516.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="520.0" text-anchor="start">245 → 45.5 MiB</text>
+<text class="gapt small b" x="840.0" y="520.0" text-anchor="end">−200 MiB (81%)</text>
+<text class="mono ink" x="286.0" y="546.0" text-anchor="end">pencilSketch()</text>
+<text class="muted small" x="286.0" y="560.0" text-anchor="end">1080p</text>
+<line class="gap" x1="435.1" y1="548.0" x2="481.3" y2="548.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="435.1" cy="548.0" r="6" stroke-width="2"/>
+<circle class="now" cx="481.3" cy="548.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="552.0" text-anchor="start">261 → 63.3 MiB</text>
+<text class="gapt small b" x="840.0" y="552.0" text-anchor="end">−198 MiB (76%)</text>
+<text class="mono ink" x="286.0" y="578.0" text-anchor="end">stylization()</text>
+<text class="muted small" x="286.0" y="592.0" text-anchor="end">1080p</text>
+<line class="gap" x1="438.0" y1="580.0" x2="481.0" y2="580.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="438.0" cy="580.0" r="6" stroke-width="2"/>
+<circle class="now" cx="481.0" cy="580.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="584.0" text-anchor="start">259 → 69.2 MiB</text>
+<text class="gapt small b" x="840.0" y="584.0" text-anchor="end">−190 MiB (73%)</text>
+<text class="mono ink" x="286.0" y="610.0" text-anchor="end">TonemapMantiuk::process()</text>
+<text class="muted small" x="286.0" y="624.0" text-anchor="end">3840 × 2160</text>
+<line class="gap" x1="494.4" y1="612.0" x2="507.3" y2="612.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="494.4" cy="612.0" r="6" stroke-width="2"/>
+<circle class="now" cx="507.3" cy="612.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="616.0" text-anchor="start">580 → 390 MiB</text>
+<text class="gapt small b" x="840.0" y="616.0" text-anchor="end">−190 MiB (33%)</text>
+<text class="mono ink" x="286.0" y="642.0" text-anchor="end">PCA, 16 components</text>
+<text class="muted small" x="286.0" y="656.0" text-anchor="end">500 × 100,000</text>
+<line class="gap" x1="472.6" y1="644.0" x2="493.8" y2="644.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="472.6" cy="644.0" r="6" stroke-width="2"/>
+<circle class="now" cx="493.8" cy="644.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="648.0" text-anchor="start">384 → 200 MiB</text>
+<text class="gapt small b" x="840.0" y="648.0" text-anchor="end">−184 MiB (48%)</text>
+<text class="mono ink" x="286.0" y="674.0" text-anchor="end">SIFT::detectAndCompute()</text>
+<text class="muted small" x="286.0" y="688.0" text-anchor="end">boat1.jpg</text>
+<line class="gap" x1="484.5" y1="676.0" x2="500.1" y2="676.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="484.5" cy="676.0" r="6" stroke-width="2"/>
+<circle class="now" cx="500.1" cy="676.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="680.0" text-anchor="start">465 → 289 MiB</text>
+<text class="gapt small b" x="840.0" y="680.0" text-anchor="end">−176 MiB (38%)</text>
+<text class="mono ink" x="286.0" y="706.0" text-anchor="end">detailEnhance()</text>
+<text class="muted small" x="286.0" y="720.0" text-anchor="end">1080p</text>
+<line class="gap" x1="436.2" y1="708.0" x2="477.7" y2="708.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="436.2" cy="708.0" r="6" stroke-width="2"/>
+<circle class="now" cx="477.7" cy="708.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="712.0" text-anchor="start">234 → 65.4 MiB</text>
+<text class="gapt small b" x="840.0" y="712.0" text-anchor="end">−168 MiB (72%)</text>
+<text class="mono ink" x="286.0" y="738.0" text-anchor="end">VariationalRefinement::calc()</text>
+<text class="muted small" x="286.0" y="752.0" text-anchor="end">4K, each call after the first</text>
+<line class="gap" x1="324.2" y1="740.0" x2="465.0" y2="740.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="324.2" cy="740.0" r="6" stroke-width="2"/>
+<circle class="now" cx="465.0" cy="740.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="744.0" text-anchor="start">159 → 2.1 MiB</text>
+<text class="gapt small b" x="840.0" y="744.0" text-anchor="end">−157 MiB (99%)</text>
+<text class="mono ink" x="286.0" y="770.0" text-anchor="end">TrackerMIL::update()</text>
+<text class="muted small" x="286.0" y="784.0" text-anchor="end">3840 × 2160</text>
+<line class="gap" x1="419.8" y1="772.0" x2="470.9" y2="772.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="419.8" cy="772.0" r="6" stroke-width="2"/>
+<circle class="now" cx="470.9" cy="772.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="776.0" text-anchor="start">190 → 39.6 MiB</text>
+<text class="gapt small b" x="840.0" y="776.0" text-anchor="end">−150 MiB (79%)</text>
+<text class="mono ink" x="286.0" y="802.0" text-anchor="end">edgePreservingFilter() RF</text>
+<text class="muted small" x="286.0" y="816.0" text-anchor="end">1080p</text>
+<line class="gap" x1="424.1" y1="804.0" x2="470.9" y2="804.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="424.1" cy="804.0" r="6" stroke-width="2"/>
+<circle class="now" cx="470.9" cy="804.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="808.0" text-anchor="start">190 → 45.1 MiB</text>
+<text class="gapt small b" x="840.0" y="808.0" text-anchor="end">−145 MiB (76%)</text>
+<text class="mono ink" x="286.0" y="834.0" text-anchor="end">AprilTag detectMarkers()</text>
+<text class="muted small" x="286.0" y="848.0" text-anchor="end">3840 × 2160</text>
+<line class="gap" x1="454.6" y1="836.0" x2="478.7" y2="836.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="454.6" cy="836.0" r="6" stroke-width="2"/>
+<circle class="now" cx="478.7" cy="836.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="840.0" text-anchor="start">242 → 115 MiB</text>
+<text class="gapt small b" x="840.0" y="840.0" text-anchor="end">−126 MiB (52%)</text>
+<text class="mono ink" x="286.0" y="866.0" text-anchor="end">TrackerCSRT::update()</text>
+<text class="muted small" x="286.0" y="880.0" text-anchor="end">3840 × 2160</text>
+<line class="gap" x1="358.9" y1="868.0" x2="453.3" y2="868.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="358.9" cy="868.0" r="6" stroke-width="2"/>
+<circle class="now" cx="453.3" cy="868.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="872.0" text-anchor="start">111 → 6.1 MiB</text>
+<text class="gapt small b" x="840.0" y="872.0" text-anchor="end">−105 MiB (94%)</text>
+<text class="mono ink" x="286.0" y="898.0" text-anchor="end">DualTVL1OpticalFlow, gamma 0</text>
+<text class="muted small" x="286.0" y="912.0" text-anchor="end">1080p</text>
+<line class="gap" x1="473.4" y1="900.0" x2="486.6" y2="900.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="473.4" cy="900.0" r="6" stroke-width="2"/>
+<circle class="now" cx="486.6" cy="900.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="904.0" text-anchor="start">308 → 205 MiB</text>
+<text class="gapt small b" x="840.0" y="904.0" text-anchor="end">−103 MiB (33%)</text>
+<text class="mono ink" x="286.0" y="930.0" text-anchor="end">TrackerGOTURN::update()</text>
+<text class="muted small" x="286.0" y="944.0" text-anchor="end">3840 × 2160</text>
+<line class="gap" x1="344.3" y1="932.0" x2="449.8" y2="932.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="344.3" cy="932.0" r="6" stroke-width="2"/>
+<circle class="now" cx="449.8" cy="932.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="936.0" text-anchor="start">99.4 → 3.9 MiB</text>
+<text class="gapt small b" x="840.0" y="936.0" text-anchor="end">−95.5 MiB (96%)</text>
+<text class="mono ink" x="286.0" y="962.0" text-anchor="end">BlocksCompensator::apply()</text>
+<text class="muted small" x="286.0" y="976.0" text-anchor="end">3840 × 2160</text>
+<line class="gap" x1="415.3" y1="964.0" x2="457.7" y2="964.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="415.3" cy="964.0" r="6" stroke-width="2"/>
+<circle class="now" cx="457.7" cy="964.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="968.0" text-anchor="start">127 → 34.5 MiB</text>
+<text class="gapt small b" x="840.0" y="968.0" text-anchor="end">−92.1 MiB (73%)</text>
+<text class="mono ink" x="286.0" y="994.0" text-anchor="end">cuda::DensePyrLKOpticalFlow</text>
+<text class="muted small" x="286.0" y="1008.0" text-anchor="end">4K</text>
+<line class="gap" x1="474.3" y1="996.0" x2="482.9" y2="996.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="474.3" cy="996.0" r="6" stroke-width="2"/>
+<circle class="now" cx="482.9" cy="996.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="1000.0" text-anchor="start">274 → 211 MiB</text>
+<text class="gapt small b" x="840.0" y="1000.0" text-anchor="end">−63.3 MiB (23%)</text>
+<text class="mono ink" x="286.0" y="1026.0" text-anchor="end">cuda::sqrIntegral()</text>
+<text class="muted small" x="286.0" y="1040.0" text-anchor="end">4K</text>
+<line class="gap" x1="435.7" y1="1028.0" x2="457.9" y2="1028.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="435.7" cy="1028.0" r="6" stroke-width="2"/>
+<circle class="now" cx="457.9" cy="1028.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="1032.0" text-anchor="start">128 → 64.4 MiB</text>
+<text class="gapt small b" x="840.0" y="1032.0" text-anchor="end">−63.2 MiB (50%)</text>
+<text class="mono ink" x="286.0" y="1058.0" text-anchor="end">GeneralizedHoughGuil::detect()</text>
+<text class="muted small" x="286.0" y="1072.0" text-anchor="end">1080p</text>
+<line class="gap" x1="423.8" y1="1060.0" x2="449.4" y2="1060.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="423.8" cy="1060.0" r="6" stroke-width="2"/>
+<circle class="now" cx="449.4" cy="1060.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="1064.0" text-anchor="start">98.3 → 44.7 MiB</text>
+<text class="gapt small b" x="840.0" y="1064.0" text-anchor="end">−53.6 MiB (55%)</text>
+<text class="mono ink" x="286.0" y="1090.0" text-anchor="end">fastNlMeansDenoisingColoredMulti()</text>
+<text class="muted small" x="286.0" y="1104.0" text-anchor="end">31 frames</text>
+<line class="gap" x1="382.5" y1="1092.0" x2="429.6" y2="1092.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="382.5" cy="1092.0" r="6" stroke-width="2"/>
+<circle class="now" cx="429.6" cy="1092.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="1096.0" text-anchor="start">53.4 → 12.6 MiB</text>
+<text class="gapt small b" x="840.0" y="1096.0" text-anchor="end">−40.8 MiB (76%)</text>
+<text class="mono ink" x="286.0" y="1122.0" text-anchor="end">MotionSaliencyBinWangApr2014</text>
+<text class="muted small" x="286.0" y="1136.0" text-anchor="end">720p</text>
+<line class="gap" x1="319.1" y1="1124.0" x2="421.3" y2="1124.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="319.1" cy="1124.0" r="6" stroke-width="2"/>
+<circle class="now" cx="421.3" cy="1124.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="1128.0" text-anchor="start">41.4 → 1.8 MiB</text>
+<text class="gapt small b" x="840.0" y="1128.0" text-anchor="end">−39.6 MiB (96%)</text>
+<text class="mono ink" x="286.0" y="1154.0" text-anchor="end">QRCodeDetector::detectAndDecode()</text>
+<text class="muted small" x="286.0" y="1168.0" text-anchor="end">3840 × 2160</text>
+<line class="gap" x1="441.7" y1="1156.0" x2="447.7" y2="1156.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="441.7" cy="1156.0" r="6" stroke-width="2"/>
+<circle class="now" cx="447.7" cy="1156.0" r="6" stroke-width="2"/>
+<text class="ink small" x="620.0" y="1160.0" text-anchor="start">93.1 → 77.5 MiB</text>
+<text class="gapt small b" x="840.0" y="1160.0" text-anchor="end">−15.6 MiB (17%)</text>
 </svg>
