@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="766" height="354" viewBox="0 0 766 354" role="img">
+<title>DISOpticalFlow: initial flow kept between calls</title><style>
+  .bg{fill:#ffffff} .call{fill:#eef2f7;stroke:#8a94a6} .calltxt{fill:#1f2328}
+  .lbl{fill:#57606a} .ok{fill:#e8f5ec;stroke:#2f8a4f} .oktxt{fill:#1a5e33}
+  .bad{fill:#fde8e8;stroke:#c62828} .badtxt{fill:#9b1c1c} .neu{fill:#f6f8fa;stroke:#c3cad3} .neutxt{fill:#3b434d}
+  .arrow{stroke:#8a94a6;fill:none} .head{fill:#8a94a6} .grid{stroke:#d8dee4}
+  text{font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#0d1117} .call{fill:#1c2430;stroke:#6e7781} .calltxt{fill:#e6edf3} .lbl{fill:#9198a1}
+    .ok{fill:#12261b;stroke:#3fb950} .oktxt{fill:#7ee2a0} .bad{fill:#2d1215;stroke:#f85149} .badtxt{fill:#ffa198}
+    .neu{fill:#161b22;stroke:#3d444d} .neutxt{fill:#c9d1d9} .arrow{stroke:#6e7781} .head{fill:#6e7781} .grid{stroke:#30363d}
+  }</style>
+<rect class="bg" width="766" height="354" rx="8"/>
+<rect class="call" x="220" y="20" width="250" height="58" rx="7"/>
+<text x="345.0" y="40.0" class="calltxt mono" text-anchor="middle" dominant-baseline="middle">dis-&gt;calc(f0, f1, flow)</text>
+<text x="345.0" y="58.0" class="calltxt mono" text-anchor="middle" dominant-baseline="middle">flow = an initial guess</text>
+<path class="arrow" d="M473 49.0 H490" stroke-width="1.6"/>
+<path class="head" d="M490 44.0 L497 49.0 L490 54.0 Z"/>
+<rect class="call" x="496" y="20" width="250" height="58" rx="7"/>
+<text x="621.0" y="40.0" class="calltxt mono" text-anchor="middle" dominant-baseline="middle">dis-&gt;calc(f0, f1, flow2)</text>
+<text x="621.0" y="58.0" class="calltxt mono" text-anchor="middle" dominant-baseline="middle">flow2 empty</text>
+<line class="grid" x1="20" y1="93" x2="746" y2="93" stroke-width="1"/>
+<text x="20" y="132.0" class="lbl mono" text-anchor="start" dominant-baseline="middle">initial_Ux, initial_Uy</text>
+<rect class="neu" x="220" y="100" width="250" height="64" rx="6" stroke-width="1.3"/>
+<text x="345.0" y="123.0" class="neutxt" text-anchor="middle" dominant-baseline="middle">filled from the guess,</text>
+<text x="345.0" y="141.0" class="neutxt" text-anchor="middle" dominant-baseline="middle">one Mat per pyramid level</text>
+<rect class="bad" x="496" y="100" width="250" height="64" rx="6" stroke-width="1.3"/>
+<text x="621.0" y="123.0" class="badtxt" text-anchor="middle" dominant-baseline="middle">not cleared:</text>
+<text x="621.0" y="141.0" class="badtxt" text-anchor="middle" dominant-baseline="middle">still the old guess</text>
+<line class="grid" x1="20" y1="171" x2="746" y2="171" stroke-width="1"/>
+<text x="20" y="201.0" class="lbl" text-anchor="start" dominant-baseline="middle">PatchInverseSearch</text>
+<text x="20" y="219.0" class="lbl" text-anchor="start" dominant-baseline="middle">candidates</text>
+<rect class="ok" x="220" y="178" width="250" height="64" rx="6" stroke-width="1.3"/>
+<text x="345.0" y="201.0" class="oktxt" text-anchor="middle" dominant-baseline="middle">include the guess,</text>
+<text x="345.0" y="219.0" class="oktxt" text-anchor="middle" dominant-baseline="middle">as asked</text>
+<rect class="bad" x="496" y="178" width="250" height="64" rx="6" stroke-width="1.3"/>
+<text x="621.0" y="201.0" class="badtxt" text-anchor="middle" dominant-baseline="middle">still include</text>
+<text x="621.0" y="219.0" class="badtxt" text-anchor="middle" dominant-baseline="middle">the old guess</text>
+<line class="grid" x1="20" y1="249" x2="746" y2="249" stroke-width="1"/>
+<text x="20" y="288.0" class="lbl" text-anchor="start" dominant-baseline="middle">result</text>
+<rect class="ok" x="220" y="256" width="250" height="64" rx="6" stroke-width="1.3"/>
+<text x="345.0" y="288.0" class="oktxt" text-anchor="middle" dominant-baseline="middle">flow</text>
+<rect class="bad" x="496" y="256" width="250" height="64" rx="6" stroke-width="1.3"/>
+<text x="621.0" y="279.0" class="badtxt" text-anchor="middle" dominant-baseline="middle">differs from a fresh</text>
+<text x="621.0" y="297.0" class="badtxt" text-anchor="middle" dominant-baseline="middle">object by 0.21 px</text>
+</svg>
