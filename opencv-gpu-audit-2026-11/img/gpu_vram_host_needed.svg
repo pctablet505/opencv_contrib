@@ -1,0 +1,205 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="660" viewBox="0 0 860 660" role="img">
+<title>GPU VRAM and avoidable CPU RAM / PCIe bounce: stock 5.x vs needed</title>
+<style>
+  .bg{fill:#fcfcfb;stroke:#e1e0d9}
+  .card{fill:#f6f5f2;stroke:#e1e0d9}
+  .card-ok{fill:#eef6ff;stroke:#b6d5fa}
+  .card-bad{fill:#fdf2f2;stroke:#f1b8b5}
+  .card-warn{fill:#fef8ec;stroke:#ebd099}
+  .ink{fill:#1f2328}
+  .ink2{fill:#57606a}
+  .muted{fill:#7d8590}
+  .grid{stroke:#eaeef2}
+  .axis{stroke:#d0d7de}
+  .need{fill:#2a78d6;stroke:#fcfcfb}
+  .need-s{stroke:#2a78d6}
+  .need-t{fill:#1b5fb8}
+  .teal{fill:#0e8a72;stroke:#fcfcfb}
+  .teal-s{stroke:#0e8a72}
+  .teal-t{fill:#0b6e5b}
+  .now{fill:#cf3a3a;stroke:#fcfcfb}
+  .now-s{stroke:#cf3a3a}
+  .now-t{fill:#b42318}
+  .coral{fill:#e07a74;stroke:#fcfcfb}
+  .coral-s{stroke:#e07a74}
+  .coral-t{fill:#b84a44}
+  .neutral{fill:#57606a;stroke:#fcfcfb}
+  .neutral-s{stroke:#6e7781}
+  .gap{stroke:#f4c0bd}
+  .stem-blue{stroke:#a8ccf7}
+  .stem-teal{stroke:#99dcd0}
+  .stem-gray{stroke:#d0d7de}
+  .null-band{fill:#eaeef2;fill-opacity:0.7}
+  .null-pt{fill:#8c959f;stroke:#fcfcfb}
+  .ci{stroke:#1f2328}
+  .sw-need{fill:#2a78d6}
+  .sw-now{fill:#cf3a3a}
+  .sw-gap{fill:#f4c0bd}
+  .sw-teal{fill:#0e8a72}
+  .sw-null{fill:#8c959f}
+  .pill-bad{fill:#fbe9e8;stroke:#e8a19d}
+  .pill-ok{fill:#e8f3ff;stroke:#9ec5f8}
+  .pill-warn{fill:#fff4db;stroke:#e3be74}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#151b23;stroke:#30363d}
+    .card{fill:#1c232d;stroke:#30363d}
+    .card-ok{fill:#16263b;stroke:#2b5387}
+    .card-bad{fill:#2d191b;stroke:#6e2c2e}
+    .card-warn{fill:#2b2314;stroke:#634d20}
+    .ink{fill:#e6edf3}
+    .ink2{fill:#9198a1}
+    .muted{fill:#7d8590}
+    .grid{stroke:#262c36}
+    .axis{stroke:#3d444d}
+    .need{fill:#4493f8;stroke:#151b23}
+    .need-s{stroke:#4493f8}
+    .need-t{fill:#6cb0ff}
+    .teal{fill:#26b397;stroke:#151b23}
+    .teal-s{stroke:#26b397}
+    .teal-t{fill:#4cd4b8}
+    .now{fill:#f05d5d;stroke:#151b23}
+    .now-s{stroke:#f05d5d}
+    .now-t{fill:#ff8a80}
+    .coral{fill:#f29b96;stroke:#151b23}
+    .coral-s{stroke:#f29b96}
+    .coral-t{fill:#ffb3ae}
+    .neutral{fill:#9198a1;stroke:#151b23}
+    .neutral-s{stroke:#9198a1}
+    .gap{stroke:#5c2a2a}
+    .stem-blue{stroke:#244875}
+    .stem-teal{stroke:#194f45}
+    .stem-gray{stroke:#363e48}
+    .null-band{fill:#262c36;fill-opacity:0.8}
+    .null-pt{fill:#9198a1;stroke:#151b23}
+    .ci{stroke:#e6edf3}
+    .sw-need{fill:#4493f8}
+    .sw-now{fill:#f05d5d}
+    .sw-gap{fill:#5c2a2a}
+    .sw-teal{fill:#26b397}
+    .sw-null{fill:#9198a1}
+    .pill-bad{fill:#3b1d1f;stroke:#823638}
+    .pill-ok{fill:#182b45;stroke:#315f9c}
+    .pill-warn{fill:#362b16;stroke:#755a24}
+  }
+  text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif;font-size:13px}
+  .mono{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;font-size:12.2px}
+  .small{font-size:11.5px}
+  .tiny{font-size:10.8px}
+  .b{font-weight:600}
+  .title{font-size:14.5px;font-weight:600}
+  .sub{font-size:12px}
+</style>
+<rect class="bg" x="0.5" y="0.5" width="859" height="659" rx="8"/>
+<text class="ink title" x="24" y="28">GPU VRAM used or retained: stock 5.x (80db42de85) vs needed (binary MiB)</text>
+<circle class="sw-now" cx="29" cy="48" r="5"/>
+<text class="ink2 small" x="40" y="52">now: stock 5.x (80db42de85)</text>
+<circle class="sw-need" cx="232" cy="48" r="5"/>
+<text class="ink2 small" x="243" y="52">needed: same output, measured</text>
+<rect class="sw-gap" x="458" y="45" width="18" height="6" rx="3"/>
+<text class="ink2 small" x="482" y="52">avoidable waste</text>
+<line class="grid" x1="256.0" y1="68" x2="256.0" y2="306" stroke-width="1"/>
+<text class="muted tiny" x="256.0" y="322" text-anchor="middle">0</text>
+<line class="grid" x1="329.0" y1="68" x2="329.0" y2="306" stroke-width="1"/>
+<text class="muted tiny" x="329.0" y="322" text-anchor="middle">200</text>
+<line class="grid" x1="402.1" y1="68" x2="402.1" y2="306" stroke-width="1"/>
+<text class="muted tiny" x="402.1" y="322" text-anchor="middle">400</text>
+<line class="grid" x1="475.1" y1="68" x2="475.1" y2="306" stroke-width="1"/>
+<text class="muted tiny" x="475.1" y="322" text-anchor="middle">600</text>
+<line class="grid" x1="548.2" y1="68" x2="548.2" y2="306" stroke-width="1"/>
+<text class="muted tiny" x="548.2" y="322" text-anchor="middle">800</text>
+<text class="ink2 small" x="424" y="340" text-anchor="middle">GPU VRAM (MiB)</text>
+<text class="mono ink" x="242" y="86" text-anchor="end">AttentionOp (FP16 vs stock FP32)</text>
+<text class="muted tiny" x="242" y="100" text-anchor="end">S = 4096, 12 heads, D = 768</text>
+<line class="gap" x1="286.6" y1="88.0" x2="581.4" y2="88.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="286.6" cy="88.0" r="5.8" stroke-width="1.8"/>
+<circle class="now" cx="581.4" cy="88.0" r="5.8" stroke-width="1.8"/>
+<text class="ink small" x="608" y="92" text-anchor="start">890.9 → 83.9 MiB</text>
+<text class="now-t small b" x="838" y="92" text-anchor="end">−807.0 MiB (91%)</text>
+<text class="mono ink" x="242" y="124" text-anchor="end">AttentionOp (FP16 vs stock FP16)</text>
+<text class="muted tiny" x="242" y="138" text-anchor="end">S = 4096, 12 heads, D = 768</text>
+<line class="gap" x1="286.6" y1="126.0" x2="420.2" y2="126.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="286.6" cy="126.0" r="5.8" stroke-width="1.8"/>
+<circle class="now" cx="420.2" cy="126.0" r="5.8" stroke-width="1.8"/>
+<text class="ink small" x="608" y="130" text-anchor="start">449.5 → 83.9 MiB</text>
+<text class="now-t small b" x="838" y="130" text-anchor="end">−365.6 MiB (81%)</text>
+<text class="mono ink" x="242" y="162" text-anchor="end">AttentionOp (FP32 exact)</text>
+<text class="muted tiny" x="242" y="176" text-anchor="end">S = 4096, 12 heads, D = 768</text>
+<line class="gap" x1="314.3" y1="164.0" x2="581.4" y2="164.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="314.3" cy="164.0" r="5.8" stroke-width="1.8"/>
+<circle class="now" cx="581.4" cy="164.0" r="5.8" stroke-width="1.8"/>
+<text class="ink small" x="608" y="168" text-anchor="start">890.9 → 159.7 MiB</text>
+<text class="now-t small b" x="838" y="168" text-anchor="end">−731.2 MiB (82%)</text>
+<text class="mono ink" x="242" y="200" text-anchor="end">MatMul + 1-D const bias</text>
+<text class="muted tiny" x="242" y="214" text-anchor="end">8 blocks, 2048 × 768 ↔ 3072</text>
+<line class="gap" x1="327.0" y1="202.0" x2="414.6" y2="202.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="327.0" cy="202.0" r="5.8" stroke-width="1.8"/>
+<circle class="now" cx="414.6" cy="202.0" r="5.8" stroke-width="1.8"/>
+<text class="ink small" x="608" y="206" text-anchor="start">434.2 → 194.3 MiB</text>
+<text class="now-t small b" x="838" y="206" text-anchor="end">−239.9 MiB (55%)</text>
+<text class="mono ink" x="242" y="238" text-anchor="end">AttentionOp (FP32 exact)</text>
+<text class="muted tiny" x="242" y="252" text-anchor="end">S = 2048, 12 heads, D = 768</text>
+<line class="gap" x1="288.0" y1="240.0" x2="351.3" y2="240.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="288.0" cy="240.0" r="5.8" stroke-width="1.8"/>
+<circle class="now" cx="351.3" cy="240.0" r="5.8" stroke-width="1.8"/>
+<text class="ink small" x="608" y="244" text-anchor="start">260.9 → 87.7 MiB</text>
+<text class="now-t small b" x="838" y="244" text-anchor="end">−173.2 MiB (66%)</text>
+<text class="mono ink" x="242" y="276" text-anchor="end">CudaUMatAllocator::allocate</text>
+<text class="muted tiny" x="242" y="290" text-anchor="end">retained leak per 4 MiB buffer</text>
+<line class="gap" x1="256.0" y1="278.0" x2="257.5" y2="278.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="256.0" cy="278.0" r="5.8" stroke-width="1.8"/>
+<circle class="now" cx="257.5" cy="278.0" r="5.8" stroke-width="1.8"/>
+<text class="ink small" x="608" y="282" text-anchor="start">4.0 → 0.0 MiB</text>
+<text class="now-t small b" x="838" y="282" text-anchor="end">−4.0 MiB (100%)</text>
+<line class="axis" x1="24" y1="362" x2="838" y2="362" stroke-width="1"/>
+<text class="ink title" x="24" y="388">Avoidable CPU RAM &amp; PCIe bounce during GPU calls (binary MiB)</text>
+<line class="grid" x1="256.0" y1="406" x2="256.0" y2="606" stroke-width="1"/>
+<text class="muted tiny" x="256.0" y="622" text-anchor="middle">0</text>
+<line class="grid" x1="310.2" y1="406" x2="310.2" y2="606" stroke-width="1"/>
+<text class="muted tiny" x="310.2" y="622" text-anchor="middle">100</text>
+<line class="grid" x1="364.4" y1="406" x2="364.4" y2="606" stroke-width="1"/>
+<text class="muted tiny" x="364.4" y="622" text-anchor="middle">200</text>
+<line class="grid" x1="418.6" y1="406" x2="418.6" y2="606" stroke-width="1"/>
+<text class="muted tiny" x="418.6" y="622" text-anchor="middle">300</text>
+<line class="grid" x1="472.8" y1="406" x2="472.8" y2="606" stroke-width="1"/>
+<text class="muted tiny" x="472.8" y="622" text-anchor="middle">400</text>
+<line class="grid" x1="527.0" y1="406" x2="527.0" y2="606" stroke-width="1"/>
+<text class="muted tiny" x="527.0" y="622" text-anchor="middle">500</text>
+<line class="grid" x1="581.2" y1="406" x2="581.2" y2="606" stroke-width="1"/>
+<text class="muted tiny" x="581.2" y="622" text-anchor="middle">600</text>
+<text class="ink2 small" x="424" y="642" text-anchor="middle">Host RAM / PCIe transfer (MiB)</text>
+<text class="mono ink" x="242" y="424" text-anchor="end">MatMul + 1-D bias (host held)</text>
+<text class="muted tiny" x="242" y="438" text-anchor="end">8 blocks, broadcast_bias + MLAS pack</text>
+<line class="gap" x1="344.2" y1="426.0" x2="579.8" y2="426.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="344.2" cy="426.0" r="5.8" stroke-width="1.8"/>
+<circle class="now" cx="579.8" cy="426.0" r="5.8" stroke-width="1.8"/>
+<text class="ink small" x="608" y="430" text-anchor="start">597.6 → 162.7 MiB</text>
+<text class="now-t small b" x="838" y="430" text-anchor="end">−434.9 MiB (73%)</text>
+<text class="mono ink" x="242" y="462" text-anchor="end">Pure-CUDA MLP forward()</text>
+<text class="muted tiny" x="242" y="476" text-anchor="end">4 blocks, shadow host pool + packB</text>
+<line class="gap" x1="267.0" y1="464.0" x2="356.6" y2="464.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="267.0" cy="464.0" r="5.8" stroke-width="1.8"/>
+<circle class="now" cx="356.6" cy="464.0" r="5.8" stroke-width="1.8"/>
+<text class="ink small" x="608" y="468" text-anchor="start">185.6 → 20.2 MiB</text>
+<text class="now-t small b" x="838" y="468" text-anchor="end">−165.4 MiB (89%)</text>
+<text class="mono ink" x="242" y="500" text-anchor="end">AttentionOp host peak</text>
+<text class="muted tiny" x="242" y="514" text-anchor="end">S = 4096, pure-CUDA forward()</text>
+<line class="gap" x1="279.3" y1="502.0" x2="305.3" y2="502.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="279.3" cy="502.0" r="5.8" stroke-width="1.8"/>
+<circle class="now" cx="305.3" cy="502.0" r="5.8" stroke-width="1.8"/>
+<text class="ink small" x="608" y="506" text-anchor="start">91.0 → 43.0 MiB</text>
+<text class="now-t small b" x="838" y="506" text-anchor="end">−47.9 MiB (53%)</text>
+<text class="mono ink" x="242" y="538" text-anchor="end">CUDA_FP16 steady forward()</text>
+<text class="muted tiny" x="242" y="552" text-anchor="end">1080p [1,3,1080,1920] heap churn/call</text>
+<line class="gap" x1="256.0" y1="540.0" x2="281.7" y2="540.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="256.0" cy="540.0" r="5.8" stroke-width="1.8"/>
+<circle class="now" cx="281.7" cy="540.0" r="5.8" stroke-width="1.8"/>
+<text class="ink small" x="608" y="544" text-anchor="start">47.5 → 0.0 MiB</text>
+<text class="now-t small b" x="838" y="544" text-anchor="end">−47.5 MiB (100%)</text>
+<text class="mono ink" x="242" y="576" text-anchor="end">UMat::copyTo(GpuMat)</text>
+<text class="muted tiny" x="242" y="590" text-anchor="end">1080p FP32 avoidable PCIe D2H+H2D</text>
+<line class="gap" x1="256.0" y1="578.0" x2="268.9" y2="578.0" stroke-width="8" stroke-linecap="round"/>
+<circle class="need" cx="256.0" cy="578.0" r="5.8" stroke-width="1.8"/>
+<circle class="now" cx="268.9" cy="578.0" r="5.8" stroke-width="1.8"/>
+<text class="ink small" x="608" y="582" text-anchor="start">23.7 → 0.0 MiB</text>
+<text class="now-t small b" x="838" y="582" text-anchor="end">−23.7 MiB (100%)</text>
+</svg>

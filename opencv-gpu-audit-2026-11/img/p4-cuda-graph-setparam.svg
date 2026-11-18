@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="244" viewBox="0 0 860 244" role="img">
+<title>CUDA Graph replay and cached backendNodes ignore Net::setParam()</title>
+<style>
+  .bg{fill:#fcfcfb;stroke:#e1e0d9}
+  .card{fill:#f6f5f2;stroke:#e1e0d9}
+  .card-ok{fill:#eef6ff;stroke:#b6d5fa}
+  .card-bad{fill:#fdf2f2;stroke:#f1b8b5}
+  .card-warn{fill:#fef8ec;stroke:#ebd099}
+  .ink{fill:#1f2328}
+  .ink2{fill:#57606a}
+  .muted{fill:#7d8590}
+  .grid{stroke:#eaeef2}
+  .axis{stroke:#d0d7de}
+  .need{fill:#2a78d6;stroke:#fcfcfb}
+  .need-s{stroke:#2a78d6}
+  .need-t{fill:#1b5fb8}
+  .teal{fill:#0e8a72;stroke:#fcfcfb}
+  .teal-s{stroke:#0e8a72}
+  .teal-t{fill:#0b6e5b}
+  .now{fill:#cf3a3a;stroke:#fcfcfb}
+  .now-s{stroke:#cf3a3a}
+  .now-t{fill:#b42318}
+  .coral{fill:#e07a74;stroke:#fcfcfb}
+  .coral-s{stroke:#e07a74}
+  .coral-t{fill:#b84a44}
+  .neutral{fill:#57606a;stroke:#fcfcfb}
+  .neutral-s{stroke:#6e7781}
+  .gap{stroke:#f4c0bd}
+  .stem-blue{stroke:#a8ccf7}
+  .stem-teal{stroke:#99dcd0}
+  .stem-gray{stroke:#d0d7de}
+  .null-band{fill:#eaeef2;fill-opacity:0.7}
+  .null-pt{fill:#8c959f;stroke:#fcfcfb}
+  .ci{stroke:#1f2328}
+  .sw-need{fill:#2a78d6}
+  .sw-now{fill:#cf3a3a}
+  .sw-gap{fill:#f4c0bd}
+  .sw-teal{fill:#0e8a72}
+  .sw-null{fill:#8c959f}
+  .pill-bad{fill:#fbe9e8;stroke:#e8a19d}
+  .pill-ok{fill:#e8f3ff;stroke:#9ec5f8}
+  .pill-warn{fill:#fff4db;stroke:#e3be74}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#151b23;stroke:#30363d}
+    .card{fill:#1c232d;stroke:#30363d}
+    .card-ok{fill:#16263b;stroke:#2b5387}
+    .card-bad{fill:#2d191b;stroke:#6e2c2e}
+    .card-warn{fill:#2b2314;stroke:#634d20}
+    .ink{fill:#e6edf3}
+    .ink2{fill:#9198a1}
+    .muted{fill:#7d8590}
+    .grid{stroke:#262c36}
+    .axis{stroke:#3d444d}
+    .need{fill:#4493f8;stroke:#151b23}
+    .need-s{stroke:#4493f8}
+    .need-t{fill:#6cb0ff}
+    .teal{fill:#26b397;stroke:#151b23}
+    .teal-s{stroke:#26b397}
+    .teal-t{fill:#4cd4b8}
+    .now{fill:#f05d5d;stroke:#151b23}
+    .now-s{stroke:#f05d5d}
+    .now-t{fill:#ff8a80}
+    .coral{fill:#f29b96;stroke:#151b23}
+    .coral-s{stroke:#f29b96}
+    .coral-t{fill:#ffb3ae}
+    .neutral{fill:#9198a1;stroke:#151b23}
+    .neutral-s{stroke:#9198a1}
+    .gap{stroke:#5c2a2a}
+    .stem-blue{stroke:#244875}
+    .stem-teal{stroke:#194f45}
+    .stem-gray{stroke:#363e48}
+    .null-band{fill:#262c36;fill-opacity:0.8}
+    .null-pt{fill:#9198a1;stroke:#151b23}
+    .ci{stroke:#e6edf3}
+    .sw-need{fill:#4493f8}
+    .sw-now{fill:#f05d5d}
+    .sw-gap{fill:#5c2a2a}
+    .sw-teal{fill:#26b397}
+    .sw-null{fill:#9198a1}
+    .pill-bad{fill:#3b1d1f;stroke:#823638}
+    .pill-ok{fill:#182b45;stroke:#315f9c}
+    .pill-warn{fill:#362b16;stroke:#755a24}
+  }
+  text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif;font-size:13px}
+  .mono{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;font-size:12.2px}
+  .small{font-size:11.5px}
+  .tiny{font-size:10.8px}
+  .b{font-weight:600}
+  .title{font-size:14.5px;font-weight:600}
+  .sub{font-size:12px}
+</style>
+<rect class="bg" x="0.5" y="0.5" width="859" height="243" rx="8"/>
+<text class="ink title" x="22" y="28">dnn::Net::setParam() on CUDA (5.x): captured cudaGraphExec &amp; backendNodes replay old weights</text>
+<text class="ink2 sub" x="22" y="47">Gemm weight initialized to W = 2·I, updated via net.setParam(id, 0, 5·I) before Call #3 (input X = [1, 1, 1, 1])</text>
+<rect class="card" x="22" y="66" width="158" height="114" rx="6"/>
+<text class="ink b" x="34" y="88">Call #1 (W = 2·I)</text>
+<text class="muted small" x="34" y="107">Eager execution</text>
+<text class="muted small" x="34" y="124">Uploads 2·I to VRAM</text>
+<rect class="pill-ok" x="34" y="144" width="134" height="24" rx="4"/>
+<text class="mono ink small b" x="101" y="160" text-anchor="middle">output = 2.00</text>
+<line class="axis" x1="184" y1="123" x2="202" y2="123" stroke-width="1.8"/>
+<polygon fill="#8c959f" points="206,123 198,118.5 198,127.5"/>
+<rect class="card" x="210" y="66" width="176" height="114" rx="6"/>
+<text class="ink b" x="222" y="88">Call #2 (W = 2·I)</text>
+<text class="muted small" x="222" y="107">Records cudaGraphExec</text>
+<text class="muted small" x="222" y="124">with 2·I device ptr</text>
+<rect class="pill-ok" x="222" y="144" width="152" height="24" rx="4"/>
+<text class="mono ink small b" x="298" y="160" text-anchor="middle">output = 2.00</text>
+<line class="axis" x1="390" y1="123" x2="408" y2="123" stroke-width="1.8"/>
+<polygon fill="#8c959f" points="412,123 404,118.5 404,127.5"/>
+<rect class="card-warn" x="416" y="66" width="176" height="114" rx="6"/>
+<text class="ink b" x="428" y="88">setParam(5·I)</text>
+<text class="muted small" x="428" y="107">Bumps weightEpoch</text>
+<text class="now-t small b" x="428" y="126">Keeps stale graph</text>
+<text class="now-t small" x="428" y="143">&amp; backendNodes</text>
+<text class="mono muted tiny" x="428" y="165">expected = 5.00</text>
+<line class="axis" x1="596" y1="123" x2="614" y2="123" stroke-width="1.8"/>
+<polygon fill="#8c959f" points="618,123 610,118.5 610,127.5"/>
+<rect class="card-bad" x="622" y="66" width="216" height="53" rx="6"/>
+<text class="now-t small b" x="634" y="86">Stock 5.x — Call #3</text>
+<text class="mono now-t small b" x="634" y="107">output = 2.00 (stale 2·I!)</text>
+<rect class="card-ok" x="622" y="127" width="216" height="53" rx="6"/>
+<text class="need-t small b" x="634" y="147">PR #30929 — Call #3</text>
+<text class="mono need-t small b" x="634" y="168">output = 5.00 (expected)</text>
+<text class="ink2 small" x="22" y="206"><tspan class="b">Pre-capture case:</tspan> calling <tspan class="mono">setParam()</tspan> between Call #1 &amp; Call #2 triggers <tspan class="mono">cudaMalloc</tspan> inside stream capture and aborts with</text>
+<text class="ink2 small" x="22" y="225"><tspan class="mono now-t">cudaErrorStreamCaptureUnsupported</tspan>. PR #30929 resets <tspan class="mono">cudaGraphExec</tspan>, clears <tspan class="mono">backendNodes</tspan>, and re-packs before capture.</text>
+</svg>

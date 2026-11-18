@@ -1,0 +1,247 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="684" viewBox="0 0 860 684" role="img">
+<title>Idle-GPU counterbalanced ABBA speedups with 95% CIs vs live null controls</title>
+<style>
+  .bg{fill:#fcfcfb;stroke:#e1e0d9}
+  .card{fill:#f6f5f2;stroke:#e1e0d9}
+  .card-ok{fill:#eef6ff;stroke:#b6d5fa}
+  .card-bad{fill:#fdf2f2;stroke:#f1b8b5}
+  .card-warn{fill:#fef8ec;stroke:#ebd099}
+  .ink{fill:#1f2328}
+  .ink2{fill:#57606a}
+  .muted{fill:#7d8590}
+  .grid{stroke:#eaeef2}
+  .axis{stroke:#d0d7de}
+  .need{fill:#2a78d6;stroke:#fcfcfb}
+  .need-s{stroke:#2a78d6}
+  .need-t{fill:#1b5fb8}
+  .teal{fill:#0e8a72;stroke:#fcfcfb}
+  .teal-s{stroke:#0e8a72}
+  .teal-t{fill:#0b6e5b}
+  .now{fill:#cf3a3a;stroke:#fcfcfb}
+  .now-s{stroke:#cf3a3a}
+  .now-t{fill:#b42318}
+  .coral{fill:#e07a74;stroke:#fcfcfb}
+  .coral-s{stroke:#e07a74}
+  .coral-t{fill:#b84a44}
+  .neutral{fill:#57606a;stroke:#fcfcfb}
+  .neutral-s{stroke:#6e7781}
+  .gap{stroke:#f4c0bd}
+  .stem-blue{stroke:#a8ccf7}
+  .stem-teal{stroke:#99dcd0}
+  .stem-gray{stroke:#d0d7de}
+  .null-band{fill:#eaeef2;fill-opacity:0.7}
+  .null-pt{fill:#8c959f;stroke:#fcfcfb}
+  .ci{stroke:#1f2328}
+  .sw-need{fill:#2a78d6}
+  .sw-now{fill:#cf3a3a}
+  .sw-gap{fill:#f4c0bd}
+  .sw-teal{fill:#0e8a72}
+  .sw-null{fill:#8c959f}
+  .pill-bad{fill:#fbe9e8;stroke:#e8a19d}
+  .pill-ok{fill:#e8f3ff;stroke:#9ec5f8}
+  .pill-warn{fill:#fff4db;stroke:#e3be74}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#151b23;stroke:#30363d}
+    .card{fill:#1c232d;stroke:#30363d}
+    .card-ok{fill:#16263b;stroke:#2b5387}
+    .card-bad{fill:#2d191b;stroke:#6e2c2e}
+    .card-warn{fill:#2b2314;stroke:#634d20}
+    .ink{fill:#e6edf3}
+    .ink2{fill:#9198a1}
+    .muted{fill:#7d8590}
+    .grid{stroke:#262c36}
+    .axis{stroke:#3d444d}
+    .need{fill:#4493f8;stroke:#151b23}
+    .need-s{stroke:#4493f8}
+    .need-t{fill:#6cb0ff}
+    .teal{fill:#26b397;stroke:#151b23}
+    .teal-s{stroke:#26b397}
+    .teal-t{fill:#4cd4b8}
+    .now{fill:#f05d5d;stroke:#151b23}
+    .now-s{stroke:#f05d5d}
+    .now-t{fill:#ff8a80}
+    .coral{fill:#f29b96;stroke:#151b23}
+    .coral-s{stroke:#f29b96}
+    .coral-t{fill:#ffb3ae}
+    .neutral{fill:#9198a1;stroke:#151b23}
+    .neutral-s{stroke:#9198a1}
+    .gap{stroke:#5c2a2a}
+    .stem-blue{stroke:#244875}
+    .stem-teal{stroke:#194f45}
+    .stem-gray{stroke:#363e48}
+    .null-band{fill:#262c36;fill-opacity:0.8}
+    .null-pt{fill:#9198a1;stroke:#151b23}
+    .ci{stroke:#e6edf3}
+    .sw-need{fill:#4493f8}
+    .sw-now{fill:#f05d5d}
+    .sw-gap{fill:#5c2a2a}
+    .sw-teal{fill:#26b397}
+    .sw-null{fill:#9198a1}
+    .pill-bad{fill:#3b1d1f;stroke:#823638}
+    .pill-ok{fill:#182b45;stroke:#315f9c}
+    .pill-warn{fill:#362b16;stroke:#755a24}
+  }
+  text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif;font-size:13px}
+  .mono{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;font-size:12.2px}
+  .small{font-size:11.5px}
+  .tiny{font-size:10.8px}
+  .b{font-weight:600}
+  .title{font-size:14.5px;font-weight:600}
+  .sub{font-size:12px}
+</style>
+<rect class="bg" x="0.5" y="0.5" width="859" height="683" rx="8"/>
+<text class="ink title" x="24" y="28">Idle-GPU Counterbalanced ABBA Speedups vs Live Null Control (20–24 pairs)</text>
+<polygon class="sw-null" points="29,43 34,48 29,53 24,48"/>
+<text class="ink2 small" x="41" y="52">A1/A2 live null control (same code)</text>
+<rect class="sw-need" x="276" y="45" width="16" height="6" rx="3" opacity="0.45"/>
+<circle class="sw-need" cx="294" cy="48" r="5"/>
+<text class="ink2 small" x="306" y="52">ABBA median speedup &amp; 95% bootstrap CI</text>
+<text class="muted small" x="838" y="52" text-anchor="end">Split scale: 1–60× (top) · 0.90–2.35× (bottom)</text>
+<text class="ink b" x="24" y="78">A. PCIe Host-Bounce &amp; Row-by-Row Copy Eliminations (log scale, 1× – 60×)</text>
+<line class="grid" x1="255.4" y1="90" x2="255.4" y2="174" stroke-width="1"/>
+<text class="muted tiny" x="255.4" y="190" text-anchor="middle">1×</text>
+<line class="grid" x1="295.6" y1="90" x2="295.6" y2="174" stroke-width="1"/>
+<text class="muted tiny" x="295.6" y="190" text-anchor="middle">2×</text>
+<line class="grid" x1="348.7" y1="90" x2="348.7" y2="174" stroke-width="1"/>
+<text class="muted tiny" x="348.7" y="190" text-anchor="middle">5×</text>
+<line class="grid" x1="388.9" y1="90" x2="388.9" y2="174" stroke-width="1"/>
+<text class="muted tiny" x="388.9" y="190" text-anchor="middle">10×</text>
+<line class="grid" x1="429.1" y1="90" x2="429.1" y2="174" stroke-width="1"/>
+<text class="muted tiny" x="429.1" y="190" text-anchor="middle">20×</text>
+<line class="grid" x1="482.2" y1="90" x2="482.2" y2="174" stroke-width="1"/>
+<text class="muted tiny" x="482.2" y="190" text-anchor="middle">50×</text>
+<line class="now-s" x1="255.4" y1="88" x2="255.4" y2="176" stroke-width="1.2" stroke-dasharray="4,3"/>
+<text class="mono ink" x="236" y="110" text-anchor="end">UMat::copyTo(GpuMat) D2D</text>
+<text class="muted tiny" x="236" y="124" text-anchor="end">1080p direct D2D vs host bounce</text>
+<line class="stem-teal" x1="255.4" y1="112.0" x2="486.5" y2="112.0" stroke-width="8" stroke-linecap="round"/>
+<polygon class="null-pt" points="255.5,106.8 260.0,112.0 255.5,117.2 251.0,112.0" stroke-width="1"/>
+<line class="ci" x1="485.7" y1="112.0" x2="487.8" y2="112.0" stroke-width="1.8"/>
+<circle class="teal" cx="486.5" cy="112.0" r="5.8" stroke-width="1.8"/>
+<text class="ink2 tiny" x="514" y="116" text-anchor="start">2.53 → 0.047 ms</text>
+<text class="mono teal-t small b" x="764" y="116" text-anchor="end">53.83× [53.1, 55.1]</text>
+<text class="muted tiny" x="840" y="116" text-anchor="end">null 1.001×</text>
+<text class="mono ink" x="236" y="152" text-anchor="end">CudaUMatAllocator 2-D ROI</text>
+<text class="muted tiny" x="236" y="166" text-anchor="end">1080p 1× cudaMemcpy2D vs 2,160×</text>
+<line class="stem-teal" x1="255.4" y1="154.0" x2="418.8" y2="154.0" stroke-width="8" stroke-linecap="round"/>
+<polygon class="null-pt" points="255.6,148.8 260.1,154.0 255.6,159.2 251.1,154.0" stroke-width="1"/>
+<line class="ci" x1="416.4" y1="154.0" x2="421.9" y2="154.0" stroke-width="1.8"/>
+<circle class="teal" cx="418.8" cy="154.0" r="5.8" stroke-width="1.8"/>
+<text class="ink2 tiny" x="514" y="158" text-anchor="start">7.63 → 0.46 ms</text>
+<text class="mono teal-t small b" x="764" y="158" text-anchor="end">16.75× [16.1, 17.7]</text>
+<text class="muted tiny" x="840" y="158" text-anchor="end">null 1.003×</text>
+<line class="axis" x1="24" y1="208" x2="838" y2="208" stroke-width="1"/>
+<text class="ink b" x="24" y="232">B. DNN &amp; OpenCL Engine / Kernel Paths (linear scale, 0.90× – 2.35×)</text>
+<rect class="null-band" x="263.6" y="244" width="5.2" height="388"/>
+<line class="grid" x1="265.4" y1="244" x2="265.4" y2="632" stroke-width="1"/>
+<text class="muted tiny" x="265.4" y="648" text-anchor="middle">1.00×</text>
+<line class="grid" x1="308.8" y1="244" x2="308.8" y2="632" stroke-width="1"/>
+<text class="muted tiny" x="308.8" y="648" text-anchor="middle">1.25×</text>
+<line class="grid" x1="352.3" y1="244" x2="352.3" y2="632" stroke-width="1"/>
+<text class="muted tiny" x="352.3" y="648" text-anchor="middle">1.50×</text>
+<line class="grid" x1="395.7" y1="244" x2="395.7" y2="632" stroke-width="1"/>
+<text class="muted tiny" x="395.7" y="648" text-anchor="middle">1.75×</text>
+<line class="grid" x1="439.2" y1="244" x2="439.2" y2="632" stroke-width="1"/>
+<text class="muted tiny" x="439.2" y="648" text-anchor="middle">2.00×</text>
+<line class="grid" x1="482.6" y1="244" x2="482.6" y2="632" stroke-width="1"/>
+<text class="muted tiny" x="482.6" y="648" text-anchor="middle">2.25×</text>
+<line class="now-s" x1="265.4" y1="242" x2="265.4" y2="634" stroke-width="1.2" stroke-dasharray="4,3"/>
+<text class="ink2 small" x="374" y="668" text-anchor="middle">Relative speedup on idle RTX PRO 6000 Blackwell GPU (1.00× = parity)</text>
+<text class="mono ink" x="236" y="262" text-anchor="end">AttentionOp Tiled FP16 vs sFP32</text>
+<text class="muted tiny" x="236" y="276" text-anchor="end">S = 4096, Tensor Core + L2 tile</text>
+<line class="stem-blue" x1="265.4" y1="264.0" x2="474.1" y2="264.0" stroke-width="7.5" stroke-linecap="round"/>
+<polygon class="null-pt" points="265.9,259.0 270.3,264.0 265.9,269.0 261.5,264.0" stroke-width="1"/>
+<line class="ci" x1="469.9" y1="264.0" x2="481.1" y2="264.0" stroke-width="1.8"/>
+<line class="ci" x1="469.9" y1="260.0" x2="469.9" y2="268.0" stroke-width="1.6"/>
+<line class="ci" x1="481.1" y1="260.0" x2="481.1" y2="268.0" stroke-width="1.6"/>
+<circle class="need" cx="474.1" cy="264.0" r="5.4" stroke-width="1.8"/>
+<text class="ink2 tiny" x="514" y="268" text-anchor="start">8.32 → 3.79 ms</text>
+<text class="mono need-t small b" x="764" y="268" text-anchor="end">2.20× [2.18, 2.24]</text>
+<text class="muted tiny" x="840" y="268" text-anchor="end">null 1.003×</text>
+<text class="mono ink" x="236" y="304" text-anchor="end">Pure-CUDA MLP init + forward()</text>
+<text class="muted tiny" x="236" y="318" text-anchor="end">4-block MLP, no shadow pool/packB</text>
+<line class="stem-blue" x1="265.4" y1="306.0" x2="430.1" y2="306.0" stroke-width="7.5" stroke-linecap="round"/>
+<polygon class="null-pt" points="267.3,301.0 271.7,306.0 267.3,311.0 262.9,306.0" stroke-width="1"/>
+<line class="ci" x1="422.7" y1="306.0" x2="435.7" y2="306.0" stroke-width="1.8"/>
+<line class="ci" x1="422.7" y1="302.0" x2="422.7" y2="310.0" stroke-width="1.6"/>
+<line class="ci" x1="435.7" y1="302.0" x2="435.7" y2="310.0" stroke-width="1.6"/>
+<circle class="need" cx="430.1" cy="306.0" r="5.4" stroke-width="1.8"/>
+<text class="ink2 tiny" x="514" y="310" text-anchor="start">85.8 → 44.5 ms</text>
+<text class="mono need-t small b" x="764" y="310" text-anchor="end">1.95× [1.91, 1.98]</text>
+<text class="muted tiny" x="840" y="310" text-anchor="end">null 1.011×</text>
+<text class="mono ink" x="236" y="346" text-anchor="end">CUDA_FP16 pinned async I/O</text>
+<text class="muted tiny" x="236" y="360" text-anchor="end">1080p steady-state forward()</text>
+<line class="stem-blue" x1="265.4" y1="348.0" x2="392.6" y2="348.0" stroke-width="7.5" stroke-linecap="round"/>
+<polygon class="null-pt" points="268.7,343.0 273.1,348.0 268.7,353.0 264.3,348.0" stroke-width="1"/>
+<line class="ci" x1="384.8" y1="348.0" x2="401.6" y2="348.0" stroke-width="1.8"/>
+<line class="ci" x1="384.8" y1="344.0" x2="384.8" y2="352.0" stroke-width="1.6"/>
+<line class="ci" x1="401.6" y1="344.0" x2="401.6" y2="352.0" stroke-width="1.6"/>
+<circle class="need" cx="392.6" cy="348.0" r="5.4" stroke-width="1.8"/>
+<text class="ink2 tiny" x="514" y="352" text-anchor="start">7.95 → 4.57 ms</text>
+<text class="mono need-t small b" x="764" y="352" text-anchor="end">1.73× [1.69, 1.78]</text>
+<text class="muted tiny" x="840" y="352" text-anchor="end">null 1.019×</text>
+<text class="mono ink" x="236" y="388" text-anchor="end">AttentionOp Tiled FP16 vs sFP16</text>
+<text class="muted tiny" x="236" y="402" text-anchor="end">S = 4096, pure L2-tiling gain</text>
+<line class="stem-blue" x1="265.4" y1="390.0" x2="356.4" y2="390.0" stroke-width="7.5" stroke-linecap="round"/>
+<polygon class="null-pt" points="265.9,385.0 270.3,390.0 265.9,395.0 261.5,390.0" stroke-width="1"/>
+<line class="ci" x1="350.2" y1="390.0" x2="361.3" y2="390.0" stroke-width="1.8"/>
+<line class="ci" x1="350.2" y1="386.0" x2="350.2" y2="394.0" stroke-width="1.6"/>
+<line class="ci" x1="361.3" y1="386.0" x2="361.3" y2="394.0" stroke-width="1.6"/>
+<circle class="need" cx="356.4" cy="390.0" r="5.4" stroke-width="1.8"/>
+<text class="ink2 tiny" x="514" y="394" text-anchor="start">6.00 → 3.79 ms</text>
+<text class="mono need-t small b" x="764" y="394" text-anchor="end">1.52× [1.49, 1.55]</text>
+<text class="muted tiny" x="840" y="394" text-anchor="end">null 1.003×</text>
+<text class="mono ink" x="236" y="430" text-anchor="end">AttentionOp Tiled FP32 vs sFP32</text>
+<text class="muted tiny" x="236" y="444" text-anchor="end">S = 4096, bit-exact L2 tiling</text>
+<line class="stem-blue" x1="265.4" y1="432.0" x2="311.8" y2="432.0" stroke-width="7.5" stroke-linecap="round"/>
+<polygon class="null-pt" points="265.0,427.0 269.4,432.0 265.0,437.0 260.6,432.0" stroke-width="1"/>
+<line class="ci" x1="310.2" y1="432.0" x2="314.7" y2="432.0" stroke-width="1.8"/>
+<line class="ci" x1="310.2" y1="428.0" x2="310.2" y2="436.0" stroke-width="1.6"/>
+<line class="ci" x1="314.7" y1="428.0" x2="314.7" y2="436.0" stroke-width="1.6"/>
+<circle class="need" cx="311.8" cy="432.0" r="5.4" stroke-width="1.8"/>
+<text class="ink2 tiny" x="514" y="436" text-anchor="start">8.27 → 6.47 ms</text>
+<text class="mono need-t small b" x="764" y="436" text-anchor="end">1.27× [1.26, 1.28]</text>
+<text class="muted tiny" x="840" y="436" text-anchor="end">null 0.998×</text>
+<text class="mono ink" x="236" y="472" text-anchor="end">Fused 1-kernel LayerNorm</text>
+<text class="muted tiny" x="236" y="486" text-anchor="end">24× [1,1024,768] (72 → 24 launches)</text>
+<line class="stem-blue" x1="265.4" y1="474.0" x2="280.0" y2="474.0" stroke-width="7.5" stroke-linecap="round"/>
+<polygon class="null-pt" points="264.2,469.0 268.6,474.0 264.2,479.0 259.8,474.0" stroke-width="1"/>
+<line class="ci" x1="274.1" y1="474.0" x2="283.5" y2="474.0" stroke-width="1.8"/>
+<line class="ci" x1="274.1" y1="470.0" x2="274.1" y2="478.0" stroke-width="1.6"/>
+<line class="ci" x1="283.5" y1="470.0" x2="283.5" y2="478.0" stroke-width="1.6"/>
+<circle class="need" cx="280.0" cy="474.0" r="5.4" stroke-width="1.8"/>
+<text class="ink2 tiny" x="514" y="478" text-anchor="start">4.46 → 4.14 ms</text>
+<text class="mono need-t small b" x="764" y="478" text-anchor="end">1.08× [1.05, 1.10]</text>
+<text class="muted tiny" x="840" y="478" text-anchor="end">null 0.993×</text>
+<text class="mono ink" x="236" y="514" text-anchor="end">MatMul + unexpanded 1-D bias</text>
+<text class="muted tiny" x="236" y="528" text-anchor="end">steady fwd (−240 MiB; 1.9× w/ init)</text>
+<line class="stem-gray" x1="265.4" y1="516.0" x2="268.0" y2="516.0" stroke-width="7.5" stroke-linecap="round"/>
+<polygon class="null-pt" points="266.8,511.0 271.2,516.0 266.8,521.0 262.4,516.0" stroke-width="1"/>
+<line class="ci" x1="263.8" y1="516.0" x2="269.4" y2="516.0" stroke-width="1.8"/>
+<line class="ci" x1="263.8" y1="512.0" x2="263.8" y2="520.0" stroke-width="1.6"/>
+<line class="ci" x1="269.4" y1="512.0" x2="269.4" y2="520.0" stroke-width="1.6"/>
+<circle class="neutral" cx="268.0" cy="516.0" r="5.4" stroke-width="1.8"/>
+<text class="ink2 tiny" x="514" y="520" text-anchor="start">9.25 → 9.18 ms</text>
+<text class="mono ink small b" x="764" y="520" text-anchor="end">1.01× [0.99, 1.02]</text>
+<text class="muted tiny" x="840" y="520" text-anchor="end">null 1.008×</text>
+<text class="mono ink" x="236" y="556" text-anchor="end">OpenCL DIS 1.0 → 1.0f (parity)</text>
+<text class="muted tiny" x="236" y="570" text-anchor="end">1080p NVIDIA JIT folds to f32</text>
+<polygon class="null-pt" points="266.6,553.0 271.0,558.0 266.6,563.0 262.2,558.0" stroke-width="1"/>
+<line class="ci" x1="263.1" y1="558.0" x2="267.8" y2="558.0" stroke-width="1.8"/>
+<line class="ci" x1="263.1" y1="554.0" x2="263.1" y2="562.0" stroke-width="1.6"/>
+<line class="ci" x1="267.8" y1="554.0" x2="267.8" y2="562.0" stroke-width="1.6"/>
+<circle class="neutral" cx="265.7" cy="558.0" r="5.4" stroke-width="1.8"/>
+<text class="ink2 tiny" x="514" y="562" text-anchor="start">15.4 → 15.2 ms</text>
+<text class="mono ink small b" x="764" y="562" text-anchor="end">1.00× [0.99, 1.01]</text>
+<text class="muted tiny" x="840" y="562" text-anchor="end">null 1.007×</text>
+<text class="mono ink" x="236" y="598" text-anchor="end">Harness 2.00× PTIMER Calib</text>
+<text class="muted tiny" x="236" y="612" text-anchor="end">synthetic 64 vs 32 kernel passes</text>
+<line class="stem-gray" x1="265.4" y1="600.0" x2="437.8" y2="600.0" stroke-width="7.5" stroke-linecap="round"/>
+<polygon class="null-pt" points="265.4,595.0 269.8,600.0 265.4,605.0 261.0,600.0" stroke-width="1"/>
+<line class="ci" x1="437.6" y1="600.0" x2="438.7" y2="600.0" stroke-width="1.8"/>
+<line class="ci" x1="437.6" y1="596.0" x2="437.6" y2="604.0" stroke-width="1.6"/>
+<line class="ci" x1="438.7" y1="596.0" x2="438.7" y2="604.0" stroke-width="1.6"/>
+<circle class="neutral" cx="437.8" cy="600.0" r="5.4" stroke-width="1.8"/>
+<text class="ink2 tiny" x="514" y="604" text-anchor="start">0.608 → 0.305 ms</text>
+<text class="mono ink small b" x="764" y="604" text-anchor="end">1.99× [1.99, 2.00]</text>
+<text class="muted tiny" x="840" y="604" text-anchor="end">null 1.000×</text>
+</svg>
