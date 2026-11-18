@@ -79,6 +79,9 @@ ref = ort.InferenceSession(f"{out}/attention_mask_input.onnx", so, providers=["C
 ref.astype(np.float32).tofile(f"{out}/attention_mask_ref.bin")
 nomask = ort.InferenceSession(f"{out}/attention_mask_const.onnx", so, providers=["CPUExecutionProvider"]).run(None, {"X": x})[0]
 print("ort mask_input vs mask_const max diff", float(np.abs(ref - nomask).max()))
+for name in ("attention_nobias", "attention_emptybias"):
+    y = ort.InferenceSession(f"{out}/{name}.onnx", so, providers=["CPUExecutionProvider"]).run(None, {"X": x})[0]
+    print(f"ort {ort.__version__} {name} runs, output {list(y.shape)}")
 print("written", out)
 
 # 24 LayerNormalization nodes in a row on [1, 1024, 768], for timing the CUDA kernel
