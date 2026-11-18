@@ -63,6 +63,11 @@ save("attention_mask_input", [attn], [vi("X", [1, S, Dm]), vi("M", [1, S], Tenso
 save("attention_mask_const", [attn], [vi("X", [1, S, Dm])], [vi("Y", [1, S, Dm])],
      [numpy_helper.from_array(wm, "W"), numpy_helper.from_array(bm, "Bias"), numpy_helper.from_array(mask, "M")], ms=True)
 
+# com.microsoft Attention without a bias, which the spec allows: two inputs, and an empty bias name
+for name, ins in (("attention_nobias", ["X", "W"]), ("attention_emptybias", ["X", "W", ""])):
+    save(name, [helper.make_node("Attention", ins, ["Y"], domain="com.microsoft", num_heads=Hm, qkv_hidden_sizes=[Dm, Dm, Dm])],
+         [vi("X", [1, S, Dm])], [vi("Y", [1, S, Dm])], [numpy_helper.from_array(wm, "W")], ms=True)
+
 # onnxruntime references for the mask models, written as raw float32
 import onnxruntime as ort
 x = rng.uniform(-1, 1, (1, S, Dm)).astype(np.float32)

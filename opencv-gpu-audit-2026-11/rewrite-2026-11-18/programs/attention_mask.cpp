@@ -1,4 +1,4 @@
-// #30919: com.microsoft Attention with the spec's int32 mask_index [B, S], as a graph input and as a constant
+// #30919: com.microsoft Attention with the spec's int32 mask_index [B, S] (graph input, constant), and without a bias
 #include <opencv2/dnn.hpp>
 #include <cstdio>
 #include <fstream>
@@ -20,7 +20,7 @@ int main(int argc, char** argv)
     cv::Mat ref = readRaw(dir + "/attention_mask_ref.bin", {1, 16, 64}, CV_32F);
     const struct { const char* name; int backend, target; } runs[] = {
         {"CPU", cv::dnn::DNN_BACKEND_OPENCV, cv::dnn::DNN_TARGET_CPU}, {"CUDA", cv::dnn::DNN_BACKEND_CUDA, cv::dnn::DNN_TARGET_CUDA}};
-    for (const char* model : {"attention_mask_input", "attention_mask_const"})
+    for (const char* model : {"attention_mask_input", "attention_mask_const", "attention_nobias", "attention_emptybias"})
         for (const auto& r : runs)
         {
             try
@@ -36,7 +36,10 @@ int main(int argc, char** argv)
                 else
                     net.setInput(x);
                 cv::Mat y = net.forward();
-                std::printf("%s %s: max |OpenCV - onnxruntime| = %g\n", model, r.name, cv::norm(y.reshape(1, 1), ref.reshape(1, 1), cv::NORM_INF));
+                if (std::string(model).rfind("attention_mask", 0) == 0)
+                    std::printf("%s %s: max |OpenCV - onnxruntime| = %g\n", model, r.name, cv::norm(y.reshape(1, 1), ref.reshape(1, 1), cv::NORM_INF));
+                else
+                    std::printf("%s %s: runs\n", model, r.name);
             }
             catch (const cv::Exception& e)
             {

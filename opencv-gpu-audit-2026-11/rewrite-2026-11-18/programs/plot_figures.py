@@ -44,11 +44,11 @@ def norm_chart(with_fix, path):
     ax.plot(xc, yc, "s-", color=GREY, lw=1.4, ms=4, zorder=2, label="CPU, 5.x (finite but wrong)")
     if with_fix:
         xf, yf, _ = series(fixed, "CUDA")
-        ax.plot(xf, yf, "o-", color=BLUE, lw=1.8, ms=5, zorder=3, label="CUDA with this fix")
+        ax.plot(xf, yf, "o-", color=BLUE, lw=1.8, ms=5, zorder=3, label="CUDA, two passes (#30927)")
     ax.axhline(1.73, color=MUTED, lw=0.8, ls=(0, (4, 3)), zorder=1)
     ax.text(x[0], 2.3, "correct outputs lie within ±1.73", color=MUTED, fontsize=9, va="bottom")
     lo, hi = min(nan[i] for i in bad), max(nan[i] for i in bad)
-    ax.text(x[bad[0]] * 1.1, 1.25e4, f"NaN in {lo:.0%}–{hi:.0%} of the outputs", color=RED, fontsize=9.5, va="center")
+    ax.text(x[0], 1.25e4, f"some outputs NaN ({lo:.0%}–{hi:.0%}): plotted in this band, not at an error value", color=RED, fontsize=9.5, va="center", ha="left")
     ax.set_xscale("log"); ax.set_yscale("log")
     ax.set_ylim(1e-7, 4e4)
     ax.set_xlabel("input mean ÷ standard deviation (64 rows of 768 values, std 0.29)")
@@ -66,7 +66,7 @@ norm_chart(False, f"{out}/norm-error-by-offset-5x.png")
 fig, ax = plt.subplots(figsize=(8.2, 4.3), dpi=150)
 st, pr = rows("stock-attention_sweep.log"), rows("pr-attention_sweep.log")
 for prec, ls in (("fp32", "-"), ("fp16", (0, (5, 3)))):
-    for data, color, who in ((st, RED, "5.x"), (pr, BLUE, "with this PR")):
+    for data, color, who in ((st, RED, "5.x"), (pr, BLUE, "query-tiled (#30932)")):
         d = [r for r in data if r["precision"] == prec]
         xs, ys = [r["S"] for r in d], [r["device_mib"] for r in d]
         ax.plot(xs, ys, ls=ls, color=color, lw=1.8, marker="o", ms=4.5, label=f"{prec.upper()}, {who}")
